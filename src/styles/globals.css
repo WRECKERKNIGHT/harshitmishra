@@ -1,0 +1,300 @@
+@custom-variant dark (&:is(.dark *));
+
+/* ─── DESIGN TOKENS ─────────────────────────────────── */
+:root {
+  --void: #FFFDEC;
+  --indigo: #38b6ff; /* Neo-brutalism cyan */
+  --cyan: #38b6ff;
+  --violet: #9d4edd;
+  --pink: #ff1694;
+  --bone: #000000;
+  --ghost: rgba(0, 0, 0, 0.4);
+  --font-display: 'Bangers', cursive;
+  --font-sub: 'Lexend', sans-serif;
+  --font-body: 'Lexend', sans-serif;
+  --font-pencil: 'Architects Daughter', cursive;
+  --font-marker: 'Permanent Marker', cursive;
+}
+
+/* ─── BASE ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip; /* clip does NOT break position: sticky! */
+  background-color: #FFFDEC;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #FFFDEC;
+  color: #000000;
+  overflow-x: clip; /* clip does NOT break position: sticky! */
+  -webkit-font-smoothing: antialiased;
+  cursor: none; /* Custom cartoon target crosshair */
+}
+
+/* Hide cursor and show custom pointer ONLY on devices with fine pointer (mouse/trackpad) */
+@media (pointer: fine) {
+  html, body, *, a, button, input, select, textarea, [role="button"] {
+    cursor: none !important;
+  }
+  .cursor-outer {
+    display: block !important;
+  }
+}
+
+/* Restore default cursors and hide custom pointer on touch devices */
+@media (pointer: coarse) {
+  html, body, *, a, button, input, select, textarea, [role="button"] {
+    cursor: auto !important;
+  }
+  .cursor-outer {
+    display: none !important;
+  }
+}
+
+/* Bold retro scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #FFFDEC; border-left: 3px solid #000000; }
+::-webkit-scrollbar-thumb { background: #FFDE47; border: 3px solid #000000; border-radius: 0px; }
+
+::selection { background: #FFDE47; color: #000000; }
+
+/* ─── HALFTONE DOT MATRIX BACKGROUND ─────────────────── */
+.global-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #FFFDEC;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* ─── NEO-BRUTALISM & CLAYMORPHISM CLASSES ──────────── */
+
+/* "Pop & Snap" Cards */
+.neo-card {
+  background-color: #ffffff;
+  border: 3.5px solid #000000;
+  box-shadow: 6px 6px 0px 0px #000000;
+  border-radius: 12px;
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+.neo-card:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0px 0px #000000;
+}
+
+/* Claymorphic buttons - "Pop & Snap" + pencil written font */
+.clay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 3.5px solid #000000;
+  background: #FFDE47; /* Yellow */
+  color: #000000;
+  font-family: var(--font-pencil); /* Pencil typography */
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.5), 
+    inset 0 -3px 0 rgba(0, 0, 0, 0.15), 
+    5px 5px 0px #000000;
+  cursor: none;
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out, background-color 0.2s ease;
+}
+.clay-btn:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.5), 
+    inset 0 -3px 0 rgba(0, 0, 0, 0.15), 
+    2px 2px 0px #000000;
+}
+.clay-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.3), 
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1), 
+    1px 1px 0px #000000;
+}
+
+/* Secondary Button - Pink fill */
+.clay-btn-secondary {
+  background: #ff1694;
+  color: #ffffff;
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.4), 
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2), 
+    5px 5px 0px #000000;
+}
+.clay-btn-secondary:hover {
+  background-color: #ff47aa;
+  transform: translate(3px, 3px);
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.4), 
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2), 
+    2px 2px 0px #000000;
+}
+.clay-btn-secondary:active {
+  transform: translate(4px, 4px);
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.2), 
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1), 
+    1px 1px 0px #000000;
+}
+
+/* Claymorphic Cards (soft, puffy, 3D clay props) */
+.clay-card {
+  background-color: #ffffff;
+  border: 3.5px solid #000000;
+  border-radius: 24px;
+  box-shadow: 
+    inset 4px 4px 8px rgba(255, 255, 255, 0.8), 
+    inset -4px -4px 8px rgba(0, 0, 0, 0.05), 
+    6px 6px 0px #000000;
+}
+
+/* Comic Speech Bubble */
+.speech-bubble {
+  position: relative;
+  background: #ffffff;
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0px 0px #000000;
+  border-radius: 16px;
+  padding: 14px 20px;
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 28px;
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: #ffffff transparent;
+  display: block;
+  width: 0;
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -19px;
+  left: 26px;
+  border-width: 17px 17px 0;
+  border-style: solid;
+  border-color: #000000 transparent;
+  display: block;
+  width: 0;
+  z-index: -1;
+}
+
+/* ─── CUSTOM TARGET CROSSHAIR CURSOR ───────────────── */
+.cursor-outer {
+  position: fixed;
+  width: 32px; height: 32px;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), width 0.15s ease, height 0.15s ease;
+}
+.cursor-outer.hovering {
+  width: 44px; height: 44px;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* ─── SCROLL PROGRESS (Comic themed) ─────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 6px;
+  background: #ff1694;
+  border-bottom: 2px solid #000000;
+  z-index: 999;
+  transform-origin: left;
+}
+
+/* ─── UTILITY ─────────────────────────────────── */
+.plasma-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 3px solid #000000;
+  background: #38b6ff;
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: #000000;
+  box-shadow: 3px 3px 0px #000000;
+}
+
+/* Choppy cartoon idle animation (step timing 6fps) */
+@keyframes cartoon-bob {
+  0%, 100% { transform: translateY(0) rotate(1.5deg); }
+  50% { transform: translateY(-8px) rotate(-1.5deg); }
+}
+.cartoon-bob {
+  animation: cartoon-bob 1.8s steps(6) infinite;
+}
+
+/* Marquee Text Ticker loop */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-inner {
+  display: flex;
+  width: max-content;
+  animation: ticker 22s linear infinite;
+}
+
+.section-ghost-num {
+  font-family: var(--font-display);
+  font-size: clamp(100px, 18vw, 240px);
+  color: transparent;
+  -webkit-text-stroke: 3px rgba(0, 0, 0, 0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+}
+
+/* Page turn skew effects */
+.page-skew-left { transform: rotate(-1.5deg); }
+.page-skew-right { transform: rotate(1.5deg); }
+
+/* Sticky scrollytelling viewport (only active on tablet/desktop) */
+.sticky-story {
+  position: relative;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFDEC;
+  padding: 40px 0;
+}
+
+@media (min-width: 640px) {
+  .sticky-story {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-direction: row;
+    overflow: hidden;
+    padding: 0;
+  }
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
