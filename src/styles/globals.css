@@ -285,7 +285,7 @@ body {
     position: sticky;
     top: 0;
     height: 100vh;
-    flex-direction: row;
+    flex-direction: column;
     overflow: hidden;
     padding: 0;
   }

@@ -72,7 +72,7 @@ export function Navbar() {
         <div className="hidden sm:block">
           <button 
             onClick={() => go("#contact")} 
-            className="clay-btn py-2 px-5 text-xs font-black"
+            className="clay-btn py-2 px-5 text-xs font-black text-black"
           >
             Hire me! ⚡
           </button>
@@ -99,7 +99,7 @@ export function Navbar() {
           ))}
           <button 
             onClick={() => go("#contact")} 
-            className="clay-btn mt-2 justify-center cursor-none font-black text-center"
+            className="clay-btn mt-2 justify-center cursor-none font-black text-center text-black"
           >
             Hire me! 💥
           </button>
