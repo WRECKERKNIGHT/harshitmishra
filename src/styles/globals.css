@@ -287,7 +287,8 @@ body {
     height: 100vh;
     flex-direction: column;
     overflow: hidden;
-    padding: 0;
+    padding-top: 96px;
+    padding-bottom: 40px;
   }
 }
 

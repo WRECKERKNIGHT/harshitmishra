@@ -100,7 +100,8 @@ export function ServicesSection() {
   useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
       setScrollVal(v);
-      const raw = v * SERVICES.length;
+      const rotationProgress = Math.min(v * 1.15, 1);
+      const raw = rotationProgress * SERVICES.length;
       const idx = Math.min(Math.floor(raw), SERVICES.length - 1);
       setActiveIdx(idx);
     });
@@ -169,7 +170,8 @@ export function ServicesSection() {
   }[screenTier];
 
   const active = SERVICES[activeIdx];
-  const orbitAngle = 270 - scrollVal * (SERVICES.length - 1) * 60;
+  const rotationProgress = Math.min(scrollVal * 1.15, 1);
+  const orbitAngle = 270 - rotationProgress * (SERVICES.length - 1) * 60;
 
   // Dynamic coordinates of active planet for the pointer line
   const activeAngleRad = ((activeIdx * 60 + orbitAngle) * Math.PI) / 180;
@@ -187,8 +189,8 @@ export function ServicesSection() {
       style={{ backgroundColor: `${active.accent}14` }} // 8% opacity dynamic backdrop tint
     >
       
-      {/* ── Sticky Scrollytelling Viewport (Tighter height to remove empty gap) ── */}
-      <div ref={storyRef} style={{ height: "350vh" }} className="relative">
+      {/* ── Sticky Scrollytelling Viewport (Extended height for smooth rotation pace) ── */}
+      <div ref={storyRef} style={{ height: "400vh" }} className="relative">
         <div className="sticky-story w-full px-6 sm:px-12 flex flex-col items-center justify-center overflow-hidden">
           
           {/* ── Global Background Floating Developer Stickers/Tags (Faded on mobile, vibrant on desktop) ── */}
@@ -582,7 +584,7 @@ export function ServicesSection() {
       </div>
 
       {/* ── Standalone Features Catalog Grid Section ────────── */}
-      <div className="pt-12 pb-24 px-6 md:px-12 max-w-7xl mx-auto border-t-4 border-black bg-white">
+      <div className="pt-4 pb-24 px-6 md:px-12 max-w-7xl mx-auto border-t-4 border-black relative z-10">
         <div className="mb-14 text-center">
           <div className="plasma-pill mb-5 w-fit uppercase font-bold mx-auto" style={{ background: "var(--neo-pink)", color: "#fff" }}>
             Specifications Catalog
