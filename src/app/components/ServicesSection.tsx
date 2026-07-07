@@ -185,7 +185,7 @@ export function ServicesSection() {
   return (
     <section 
       id="services" 
-      className="relative border-b-[6px] border-black transition-colors duration-500 overflow-hidden"
+      className="relative border-b-[6px] border-black transition-colors duration-500"
       style={{ backgroundColor: `${active.accent}14` }} // 8% opacity dynamic backdrop tint
     >
       
@@ -299,9 +299,9 @@ export function ServicesSection() {
             </span>
           </div>
 
-          {/* Section Heading centered above the Orbit Console */}
-          <div className="mb-6 select-none text-center z-10">
-            <span className="plasma-pill mb-1.5 w-fit text-[9px] font-bold uppercase py-0.5 px-2 bg-black text-white rounded mx-auto block">
+          {/* Section Heading aligned to the left side of the screen */}
+          <div className="mb-6 select-none text-left z-10 w-full max-w-7xl mx-auto px-6 md:px-12">
+            <span className="plasma-pill mb-1.5 w-fit text-[9px] font-bold uppercase py-0.5 px-2 bg-black text-white rounded ml-0 block">
               SERVICE RADAR v1.0
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-black text-black leading-none uppercase mt-1">
@@ -579,6 +579,14 @@ export function ServicesSection() {
             <span className="font-display text-sm font-black text-black">
               PANEL {activeIdx + 1} / {SERVICES.length}
             </span>
+          </div>
+
+          {/* Bottom Comic Ticker Ribbon (Useful Tips & Guide to fill empty dead space) */}
+          <div className="w-full bg-[#38b6ff] border-y-[2.5px] border-black py-1.5 overflow-hidden relative z-10 mt-auto select-none rotate-[0.5deg] shadow-[3px_3px_0px_#000] min-h-[32px] flex items-center">
+            <div className="ticker-inner flex whitespace-nowrap gap-6 text-black font-display text-xs uppercase tracking-wider">
+              <span>⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS • 17-YEAR-OLD FULL-STACK BUILDER • ⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS •</span>
+              <span>⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS • 17-YEAR-OLD FULL-STACK BUILDER • ⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS •</span>
+            </div>
           </div>
         </div>
       </div>
