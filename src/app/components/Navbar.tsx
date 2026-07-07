@@ -32,7 +32,7 @@ export function Navbar() {
   return (
     <nav className="fixed top-4 inset-x-0 z-50 px-4 sm:px-6 md:px-12">
       {/* Floating Neo-Brutalist Bar */}
-      <div className="max-w-7xl mx-auto bg-white border-[3px] border-black rounded-xl shadow-[5px_5px_0px_rgba(0,0,0,1)] px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto bg-white border-[3px] border-black rounded-xl shadow-[5px_5px_0px_rgba(0,0,0,1)] px-4 sm:px-6 h-16 flex items-center justify-between relative">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="flex items-center gap-2.5 cursor-none"
@@ -46,14 +46,14 @@ export function Navbar() {
         </button>
 
         {/* Center Neubrutalist Badge (Perfectly centered on all screen sizes) */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center select-none pointer-events-none">
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center select-none pointer-events-none z-20">
           <span className="bg-[#38b6ff] text-black border-2 border-black px-2.5 py-0.5 text-[9px] font-black tracking-widest rounded-md rotate-[-2.5deg] shadow-[2px_2px_0px_#000]">
             VISIONARY '26 ⚡
           </span>
         </div>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden sm:flex items-center gap-4 md:gap-8">
+        {/* Desktop Navigation Links (Pushed right to prevent center overlap) */}
+        <div className="hidden sm:flex items-center gap-4 md:gap-6 ml-auto mr-6 relative z-10">
           {NAV.map((n) => (
             <button key={n.label} onClick={() => go(n.href)} className="relative cursor-none group py-1">
               <span className={`font-accent text-xs tracking-wider font-extrabold uppercase transition-colors duration-150 ${

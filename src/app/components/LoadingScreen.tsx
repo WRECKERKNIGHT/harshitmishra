@@ -18,7 +18,7 @@ export function LoadingScreen({ onDone }: { onDone: () => void }) {
   const getLetterAnim = (i: number) => {
     if (phase === "shatter") {
       const angle = (i / LETTERS.length) * 360 + 45;
-      const dist = 500 + Math.random() * 200;
+      const dist = 500 + ((i * 37) % 180); // Deterministic pseudo-random distance
       return {
         x: Math.cos((angle * Math.PI) / 180) * dist,
         y: Math.sin((angle * Math.PI) / 180) * dist - 200,
@@ -71,12 +71,13 @@ export function LoadingScreen({ onDone }: { onDone: () => void }) {
                 }
                 transition={
                   phase === "shatter"
-                    ? { duration: 0.5, delay: i * 0.03, ease: [0.55, 0, 1, 0.45] }
-                    : { duration: 0.5, delay: 0.1 + i * 0.06, type: "spring", stiffness: 120 }
+                    ? { duration: 0.45, delay: i * 0.025, ease: [0.25, 0.46, 0.45, 0.94] }
+                    : { duration: 0.4, delay: 0.1 + i * 0.05, ease: [0.175, 0.885, 0.32, 1.1] } // Lightweight easeOutBack tween instead of spring
                 }
                 className="block font-display text-[clamp(4.2rem,15vw,12rem)] leading-none select-none text-black"
                 style={{
-                  textShadow: "6px 6px 0px #000, 0px 0px 0px #000",
+                  textShadow: "6px 6px 0px #000"
+,
                   WebkitTextStroke: "4px #000000"
                 }}
               >
