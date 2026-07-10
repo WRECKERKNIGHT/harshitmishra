@@ -175,20 +175,21 @@ export function PreviewGenerator() {
             initial={{ opacity: 0, x: -30 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
+            whileHover={{ scale: 1.005, y: -2 }}
             transition={{ duration: 0.5 }} 
-            className="neo-card p-6 md:p-8 space-y-6 bg-white"
+            className="neo-card p-6 md:p-8 space-y-6 bg-white dark:bg-zinc-900 transition-all duration-300"
           >
-            <div className="flex items-center gap-2 mb-2 pb-4 border-b-2 border-black">
+            <div className="flex items-center gap-2 mb-2 pb-4 border-b-2 border-black dark:border-white">
               {["var(--neo-cyan)", "var(--neo-pink)", "var(--neo-yellow)"].map((c, i) => (
-                <div key={i} className="w-3 h-3 rounded-full border border-black" style={{ background: c }} />
+                <div key={i} className="w-3 h-3 rounded-full border border-black dark:border-white" style={{ background: c }} />
               ))}
-              <span className="ml-2 font-accent font-black text-[10px] tracking-widest text-black/40 uppercase">
+              <span className="ml-2 font-accent font-black text-[10px] tracking-widest text-black/40 dark:text-zinc-500 uppercase">
                 INPUT_SHEET
               </span>
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black">
+              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black dark:text-white">
                 Project Title
               </label>
               <input 
@@ -196,21 +197,21 @@ export function PreviewGenerator() {
                 value={name} 
                 onChange={e => setName(e.target.value)} 
                 placeholder="e.g. NexGen AI Platform"
-                className="w-full h-11 bg-white border-[3px] border-black rounded-lg px-4 font-body text-sm text-black placeholder:text-black/30 focus:outline-none focus:bg-white shadow-[2px_2px_0px_#000]"
+                className="w-full h-11 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 font-body text-sm text-black dark:text-white placeholder:text-black/30 dark:placeholder:text-zinc-600 focus:outline-none shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black">
+              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black dark:text-white">
                 Category
               </label>
               <Select onValueChange={setType}>
-                <SelectTrigger className="bg-white border-[3px] border-black text-black rounded-lg h-11 font-body text-sm shadow-[2px_2px_0px_#000] focus:ring-0 focus:outline-none">
+                <SelectTrigger className="bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white text-black dark:text-white rounded-lg h-11 font-body text-sm shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] focus:ring-0 focus:outline-none hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150 cursor-none">
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-[3px] border-black rounded-lg shadow-[4px_4px_0px_#000]">
+                <SelectContent className="bg-white dark:bg-zinc-900 border-[3px] border-black dark:border-white rounded-lg shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]">
                   {Object.entries(TYPE_MAP).map(([v, d]) => (
-                    <SelectItem key={v} value={v} className="font-body text-sm text-black focus:bg-[#FFDE47]">
+                    <SelectItem key={v} value={v} className="font-body text-sm text-black dark:text-white focus:bg-[#FFDE47] dark:focus:bg-[#FFDE47] dark:focus:text-black cursor-none">
                       {d.icon} {d.label}
                     </SelectItem>
                   ))}
@@ -219,7 +220,7 @@ export function PreviewGenerator() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black">
+              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black dark:text-white">
                 Narrative Pitch
               </label>
               <textarea 
@@ -227,12 +228,12 @@ export function PreviewGenerator() {
                 onChange={e => setDesc(e.target.value)} 
                 placeholder="Describe what you want to build..." 
                 rows={3}
-                className="w-full bg-white border-[3px] border-black rounded-lg px-4 py-3 font-body text-sm text-black placeholder:text-black/30 focus:outline-none resize-none shadow-[2px_2px_0px_#000]"
+                className="w-full bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 py-3 font-body text-sm text-black dark:text-white placeholder:text-black/30 dark:placeholder:text-zinc-600 focus:outline-none resize-none shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase flex items-center gap-1.5 text-black">
+              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase flex items-center gap-1.5 text-black dark:text-white">
                 <Palette size={12} className="stroke-[2.5px]" /> Brand Color
               </label>
               <div className="flex gap-3 items-center">
@@ -240,13 +241,13 @@ export function PreviewGenerator() {
                   type="color" 
                   value={color} 
                   onChange={e => setColor(e.target.value)} 
-                  className="w-12 h-12 rounded-lg border-[3px] border-black cursor-none bg-transparent p-0" 
+                  className="w-12 h-12 rounded-lg border-[3px] border-black dark:border-white cursor-none bg-transparent p-0" 
                 />
                 <input 
                   type="text" 
                   value={color} 
                   onChange={e => setColor(e.target.value)} 
-                  className="flex-1 h-12 bg-white border-[3px] border-black rounded-lg px-4 font-accent text-sm text-black/60 shadow-[2px_2px_0px_#000] focus:outline-none" 
+                  className="flex-1 h-12 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 font-accent text-sm text-black/60 dark:text-zinc-400 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] focus:outline-none hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150" 
                 />
               </div>
             </div>
@@ -254,7 +255,7 @@ export function PreviewGenerator() {
             <button 
               onClick={generate} 
               disabled={!canGo || loading}
-              className="w-full clay-btn justify-center font-black"
+              className="w-full clay-btn justify-center font-black cursor-none"
               style={{ 
                 backgroundColor: canGo ? color : "#e5e7eb",
                 opacity: canGo ? 1 : 0.6 
@@ -279,17 +280,18 @@ export function PreviewGenerator() {
             initial={{ opacity: 0, x: 30 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
+            whileHover={{ scale: 1.005, y: -2 }}
             transition={{ duration: 0.5, delay: 0.1 }} 
-            className="neo-card bg-[#18181b] border-[3px] border-black rounded-2xl min-h-[520px] flex flex-col overflow-hidden shadow-[6px_6px_0px_#000] p-0"
+            className="neo-card bg-[#18181b] border-[3px] border-black dark:border-white rounded-2xl min-h-[520px] flex flex-col overflow-hidden shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] p-0 transition-all duration-300"
           >
             {/* Browser Header Bar */}
-            <div className="h-10 bg-[#09090b] border-b-2 border-black flex items-center justify-between px-4 select-none shrink-0">
+            <div className="h-10 bg-[#09090b] border-b-2 border-black dark:border-white flex items-center justify-between px-4 select-none shrink-0">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] border border-black/20" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] border border-black/20" />
                 <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f] border border-black/20" />
               </div>
-              <div className="bg-[#18181b] border border-black/30 rounded px-4 py-0.5 text-[9px] text-zinc-400 font-mono tracking-wide w-48 text-center truncate">
+              <div className="bg-[#18181b] border border-black/30 dark:border-white/30 rounded px-4 py-0.5 text-[9px] text-zinc-400 font-mono tracking-wide w-48 text-center truncate">
                 {result ? `${result.name.toLowerCase().replace(/\s+/g, '-')}.com` : 'awaiting-engine-input.io'}
               </div>
               <div className="w-10" />

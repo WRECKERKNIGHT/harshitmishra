@@ -97,13 +97,25 @@ export function ServicesSection() {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
+  const latestScroll = useRef(0);
+  const animating = useRef(false);
+
   useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
-      setScrollVal(v);
-      const rotationProgress = Math.min(v * 1.15, 1);
-      const raw = rotationProgress * SERVICES.length;
-      const idx = Math.min(Math.floor(raw), SERVICES.length - 1);
-      setActiveIdx(idx);
+      latestScroll.current = v;
+      if (!animating.current) {
+        animating.current = true;
+        requestAnimationFrame(() => {
+          const val = latestScroll.current;
+          const rotationProgress = Math.min(val * 1.15, 1);
+          const raw = rotationProgress * SERVICES.length;
+          const idx = Math.min(Math.floor(raw), SERVICES.length - 1);
+          
+          setScrollVal(val);
+          setActiveIdx((prev) => (prev !== idx ? idx : prev));
+          animating.current = false;
+        });
+      }
     });
     return unsub;
   }, [scrollYProgress]);
@@ -371,15 +383,15 @@ export function ServicesSection() {
 
               {/* Concentric blueprint dashed paths (Layered stacked circles) */}
               <div 
-                className="absolute rounded-full border-[2.5px] border-dashed border-black/15 pointer-events-none z-0"
+                className="absolute rounded-full border-[2.5px] border-dashed border-black/15 dark:border-white/15 pointer-events-none z-0"
                 style={{ width: `${layout.ring1}px`, height: `${layout.ring1}px` }}
               />
               <div 
-                className="absolute rounded-full border-[3px] border-dashed border-black/20 pointer-events-none z-0"
+                className="absolute rounded-full border-[3px] border-dashed border-black/20 dark:border-white/20 pointer-events-none z-0"
                 style={{ width: `${layout.ring2}px`, height: `${layout.ring2}px` }}
               />
               <div 
-                className="absolute rounded-full border-[3.5px] border-dashed border-black/35 pointer-events-none z-0 animate-[spin_55s_linear_infinite]"
+                className="absolute rounded-full border-[3.5px] border-dashed border-black/35 dark:border-white/35 pointer-events-none z-0 animate-[spin_55s_linear_infinite]"
                 style={{ width: `${layout.ring3}px`, height: `${layout.ring3}px` }}
               />
 
@@ -396,10 +408,9 @@ export function ServicesSection() {
                       y1={layout.center}
                       x2={x2}
                       y2={y2}
-                      stroke="black"
                       strokeWidth="2.5"
                       strokeDasharray="6,6"
-                      className="transition-all duration-200 opacity-40"
+                      className="transition-all duration-200 opacity-40 stroke-black dark:stroke-white"
                     />
                   );
                 })}
@@ -407,7 +418,7 @@ export function ServicesSection() {
 
               {/* Enlarged Central Core Sun (Concentric mockup circles) */}
               <div 
-                className="rounded-full border-4 md:border-[5px] border-black flex items-center justify-center shadow-[5px_5px_0px_#000] z-20 relative transition-colors duration-500"
+                className="rounded-full border-4 md:border-[5px] border-black dark:border-white flex items-center justify-center shadow-[5px_5px_0px_#000] dark:shadow-[5px_5px_0px_#fff] z-20 relative transition-colors duration-500"
                 style={{ 
                   backgroundColor: active.accent,
                   width: `${layout.coreSize}px`,
@@ -415,14 +426,14 @@ export function ServicesSection() {
                 }}
               >
                 <div 
-                  className="rounded-full border-[3px] border-black bg-white flex flex-col items-center justify-center shadow-[2px_2px_0px_#000]"
+                  className="rounded-full border-[3px] border-black dark:border-white bg-white dark:bg-zinc-850 flex flex-col items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] transition-colors duration-300"
                   style={{
                     width: `${layout.coreInnerSize}px`,
                     height: `${layout.coreInnerSize}px`
                   }}
                 >
-                  <span className="font-display font-black text-2xl md:text-4xl text-black leading-none select-none">HM!</span>
-                  <span className="font-accent text-[7.5px] font-black text-white tracking-widest mt-1 uppercase bg-black px-1.5 py-0.5 rounded border border-black shadow-[1px_1px_0px_#000]">CORE</span>
+                  <span className="font-display font-black text-2xl md:text-4xl text-black dark:text-white leading-none select-none">HM!</span>
+                  <span className="font-accent text-[7.5px] font-black text-white tracking-widest mt-1 uppercase bg-black dark:bg-white dark:text-black px-1.5 py-0.5 rounded border border-black dark:border-white shadow-[1px_1px_0px_#000] dark:shadow-[1px_1px_0px_#fff]">CORE</span>
                 </div>
               </div>
 
@@ -460,7 +471,7 @@ export function ServicesSection() {
                           initial={{ opacity: 0, scale: 0.8, x: -15 }}
                           animate={{ opacity: 1, scale: 1, x: 0 }}
                           transition={{ type: "spring", stiffness: 450, damping: 14 }}
-                          className="absolute bg-[#FFDE47] text-black border-2 border-black rounded-lg px-2.5 py-1.5 text-[9px] font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] z-40 text-left leading-snug flex flex-col select-none"
+                          className="absolute bg-[#FFDE47] text-black border-2 border-black dark:border-white rounded-lg px-2.5 py-1.5 text-[9px] font-black uppercase tracking-wider shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#fff] z-40 text-left leading-snug flex flex-col select-none animate-[pulse_2.5s_infinite]"
                           style={{
                             left: `${layout.infoPillLeft}px`,
                             width: `${layout.infoPillWidth}px`
@@ -473,20 +484,20 @@ export function ServicesSection() {
 
                       {/* Planet ball */}
                       <div
-                        className={`rounded-full border-[3px] border-black flex items-center justify-center transition-all duration-150 ${
+                        className={`rounded-full border-[3px] border-black dark:border-white flex items-center justify-center transition-all duration-150 ${
                           isActive 
-                            ? "scale-110 shadow-[4px_4px_0px_#000]" 
-                            : "scale-100 shadow-[2px_2px_0px_#000] hover:bg-white/80"
+                            ? "scale-110 shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]" 
+                            : "scale-100 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] dark:hover:bg-zinc-700 bg-white dark:bg-zinc-800"
                         }`}
                         style={{
-                          backgroundColor: isActive ? serv.accent : "#ffffff",
+                          backgroundColor: isActive ? serv.accent : undefined,
                           width: `${isActive ? layout.planetActiveSize : layout.planetInactiveSize}px`,
                           height: `${isActive ? layout.planetActiveSize : layout.planetInactiveSize}px`
                         }}
                       >
                         <Icon 
                           size={isActive ? layout.iconActiveSize : layout.iconInactiveSize} 
-                          className="text-black stroke-[2.5px] transition-all" 
+                          className={`stroke-[2.5px] transition-all ${isActive ? "text-black" : "text-black dark:text-white"}`} 
                         />
                       </div>
                     </div>
@@ -515,10 +526,10 @@ export function ServicesSection() {
                     ? `M ${planetX} ${planetY} C ${planetX} ${(planetY + cardTargetY)/2}, ${cardTargetX} ${(planetY + cardTargetY)/2}, ${cardTargetX} ${cardTargetY}`
                     : `M ${planetX} ${planetY} C ${(planetX + cardTargetX)/2} ${planetY}, ${(planetX + cardTargetX)/2} ${cardTargetY}, ${cardTargetX} ${cardTargetY}`
                   }
-                  stroke="black"
                   strokeWidth="3.5"
                   fill="none"
                   strokeLinecap="round"
+                  className="stroke-black dark:stroke-white transition-all duration-300"
                 />
               </AnimatePresence>
             </svg>
@@ -539,29 +550,29 @@ export function ServicesSection() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9, y: -5 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-[#FFFDEC] border-[3px] border-black rounded-lg shadow-[4.5px_4.5px_0px_#000] p-4 relative overflow-hidden"
+                  className="bg-[#FFFDEC] dark:bg-zinc-900 border-[3px] border-black dark:border-white rounded-lg shadow-[4.5px_4.5px_0px_#000] dark:shadow-[4.5px_4.5px_0px_#fff] p-4 relative overflow-hidden transition-all duration-300"
                 >
                   {/* OS Titlebar inside Tooltip */}
                   <div 
-                    className="border-b-2 border-black -mx-4 -mt-4 px-3.5 py-1.5 flex items-center justify-between mb-3.5"
+                    className="border-b-2 border-black dark:border-white -mx-4 -mt-4 px-3.5 py-1.5 flex items-center justify-between mb-3.5"
                     style={{ background: active.accent }}
                   >
                     <span className="font-accent text-[8px] font-black uppercase text-black">
                       Service Details
                     </span>
-                    <div className="w-4 h-4 rounded border-2 border-black bg-white flex items-center justify-center text-[5px] font-black text-black shadow-[1px_1px_0px_#000]">×</div>
+                    <div className="w-4 h-4 rounded border-2 border-black dark:border-white bg-white dark:bg-zinc-800 flex items-center justify-center text-[5px] font-black text-black dark:text-white shadow-[1px_1px_0px_#000] dark:shadow-[1px_1px_0px_#fff]">×</div>
                   </div>
 
-                  <h4 className="font-display text-base font-black text-black uppercase mb-1">
+                  <h4 className="font-display text-base font-black text-black dark:text-white uppercase mb-1">
                     {active.title}
                   </h4>
-                  <p className="font-body text-[11px] font-bold text-black/75 leading-relaxed">
+                  <p className="font-body text-[11px] font-bold text-black/75 dark:text-zinc-350 leading-relaxed">
                     Learn about '{active.tagline}' and other core competencies. Detailed wins and project examples below.
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-1">
                     {active.tags.map((t) => (
-                      <span key={t} className="font-accent text-[7.5px] font-black px-1.5 py-0.5 border border-black bg-white rounded shadow-[1px_1px_0px_#000]">
+                      <span key={t} className="font-accent text-[7.5px] font-black px-1.5 py-0.5 border border-black dark:border-white bg-white dark:bg-zinc-800 text-black dark:text-white rounded shadow-[1px_1px_0px_#000] dark:shadow-[1px_1px_0px_#fff]">
                         #{t}
                       </span>
                     ))}
@@ -572,17 +583,17 @@ export function ServicesSection() {
 
           </div>
 
-          <div className="mt-8 bg-white border-2 border-black rounded-lg px-4 py-1.5 shadow-[2px_2px_0px_#000] text-center max-w-[200px] z-10">
-            <span className="font-accent text-[9px] tracking-widest text-black/45 font-black uppercase block">
+          <div className="mt-8 bg-white dark:bg-zinc-900 border-2 border-black dark:border-white rounded-lg px-4 py-1.5 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] text-center max-w-[200px] z-10 transition-all duration-300">
+            <span className="font-accent text-[9px] tracking-widest text-black/45 dark:text-zinc-500 font-black uppercase block">
               ORBIT TRANSMITTER
             </span>
-            <span className="font-display text-sm font-black text-black">
+            <span className="font-display text-sm font-black text-black dark:text-white">
               PANEL {activeIdx + 1} / {SERVICES.length}
             </span>
           </div>
 
           {/* Bottom Comic Ticker Ribbon (Useful Tips & Guide to fill empty dead space) */}
-          <div className="w-full bg-[#38b6ff] border-y-[2.5px] border-black py-1.5 overflow-hidden relative z-10 mt-auto select-none rotate-[0.5deg] shadow-[3px_3px_0px_#000] min-h-[32px] flex items-center">
+          <div className="w-full bg-[#38b6ff] border-y-[2.5px] border-black dark:border-white py-1.5 overflow-hidden relative z-10 mt-auto select-none rotate-[0.5deg] shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#fff] min-h-[32px] flex items-center transition-all duration-300">
             <div className="ticker-inner flex whitespace-nowrap gap-6 text-black font-display text-xs uppercase tracking-wider">
               <span>⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS • 17-YEAR-OLD FULL-STACK BUILDER • ⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS •</span>
               <span>⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS • 17-YEAR-OLD FULL-STACK BUILDER • ⚡ SCROLL DOWN TO ROTATE ORBIT • CLICK SERVICE PILLS FOR DETAILS •</span>
@@ -592,15 +603,15 @@ export function ServicesSection() {
       </div>
 
       {/* ── Standalone Features Catalog Grid Section ────────── */}
-      <div className="pt-4 pb-24 px-6 md:px-12 max-w-7xl mx-auto border-t-4 border-black relative z-10">
+      <div className="pt-4 pb-24 px-6 md:px-12 max-w-7xl mx-auto border-t-4 border-black dark:border-white relative z-10">
         <div className="mb-14 text-center">
-          <div className="plasma-pill mb-5 w-fit uppercase font-bold mx-auto" style={{ background: "var(--neo-pink)", color: "#fff" }}>
+          <div className="plasma-pill mb-5 w-fit uppercase font-bold mx-auto border-2 border-black dark:border-white shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff]" style={{ background: "var(--neo-pink)", color: "#fff" }}>
             Specifications Catalog
           </div>
-          <h3 className="font-display text-4xl md:text-5xl font-black text-black select-none">
+          <h3 className="font-display text-4xl md:text-5xl font-black text-black dark:text-white select-none">
             SERVICE DETAILS &amp; WINS
           </h3>
-          <p className="font-body text-xs font-semibold text-black/60 max-w-md mx-auto mt-2 leading-relaxed">
+          <p className="font-body text-xs font-semibold text-black/60 dark:text-zinc-400 max-w-md mx-auto mt-2 leading-relaxed">
             A comprehensive list of deliverables and platform structures included under each service panel.
           </p>
         </div>
@@ -616,24 +627,24 @@ export function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="neo-card p-6 flex flex-col justify-between bg-white text-left select-none"
+                className="neo-card p-6 flex flex-col justify-between bg-white dark:bg-zinc-900 text-left select-none transition-colors duration-300"
                 style={{
                   transform: `rotate(${(i % 2 === 0 ? 1 : -1) * 1}deg)`,
                 }}
               >
                 <div>
                   {/* Card Header */}
-                  <div className="flex items-center justify-between pb-3 border-b-2 border-black mb-4">
+                  <div className="flex items-center justify-between pb-3 border-b-2 border-black dark:border-white mb-4">
                     <div className="flex items-center gap-2">
                       <div 
-                        className="w-9 h-9 rounded-lg flex items-center justify-center border-2 border-black shadow-[1.5px_1.5px_0px_#000]"
+                        className="w-9 h-9 rounded-lg flex items-center justify-center border-2 border-black dark:border-white shadow-[1.5px_1.5px_0px_#000] dark:shadow-[1.5px_1.5px_0px_#fff]"
                         style={{ background: serv.accent }}
                       >
                         <Icon size={16} className="text-black stroke-[2.5px]" />
                       </div>
-                      <h4 className="font-display text-lg font-black text-black">{serv.title}</h4>
+                      <h4 className="font-display text-lg font-black text-black dark:text-white">{serv.title}</h4>
                     </div>
-                    <span className="font-display text-xl font-black text-black/25">{serv.num}</span>
+                    <span className="font-display text-xl font-black text-black/25 dark:text-white/20">{serv.num}</span>
                   </div>
 
                   {/* Tagline */}
@@ -646,12 +657,12 @@ export function ServicesSection() {
                     {serv.features.map((feat, fi) => (
                       <div key={fi} className="flex items-start gap-2.5">
                         <div
-                          className="w-4.5 h-4.5 rounded border-2 border-black flex items-center justify-center flex-shrink-0 shadow-[1px_1px_0px_#000] mt-0.5"
+                          className="w-4.5 h-4.5 rounded border-2 border-black dark:border-white flex items-center justify-center flex-shrink-0 shadow-[1px_1px_0px_#000] dark:shadow-[1px_1px_0px_#fff] mt-0.5"
                           style={{ background: serv.accent }}
                         >
                           <Check size={10} className="stroke-[3.5px] text-black" />
                         </div>
-                        <span className="font-body text-[11px] font-bold text-black/80 leading-tight">
+                        <span className="font-body text-[11px] font-bold text-black/85 dark:text-zinc-300 leading-tight">
                           {feat}
                         </span>
                       </div>
@@ -660,11 +671,11 @@ export function ServicesSection() {
                 </div>
 
                 {/* Tech Badges */}
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-black/5">
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t-2 border-black/5 dark:border-white/5">
                   {serv.tags.map((tag) => (
                     <span 
                       key={tag} 
-                      className="font-accent text-[9px] font-extrabold tracking-wider px-2 py-0.5 bg-black/5 border border-black rounded text-black/75"
+                      className="font-accent text-[9px] font-extrabold tracking-wider px-2 py-0.5 bg-black/5 dark:bg-zinc-800 border border-black dark:border-white rounded text-black/75 dark:text-zinc-300 shadow-[1px_1px_0px_#000] dark:shadow-[1px_1px_0px_#fff]"
                     >
                       {tag.toUpperCase()}
                     </span>

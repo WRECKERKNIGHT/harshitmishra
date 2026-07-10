@@ -88,10 +88,10 @@ export function TheArsenal() {
           <div className="plasma-pill mb-5 w-fit font-bold uppercase" style={{ background: "var(--neo-pink)", color: "#ffffff" }}>
             Field Loadout
           </div>
-          <h2 className="font-display text-[clamp(2.2rem,6vw,4.8rem)] font-black leading-[0.9] text-black">
-            THE <span className="bg-[#38b6ff] text-white px-4 py-1.5 rotate-[1.5deg] inline-block border-[3.5px] border-black shadow-[4px_4px_0px_#000]">ARSENAL</span>
+          <h2 className="font-display text-[clamp(2.2rem,6vw,4.8rem)] font-black leading-[0.9] text-black dark:text-white">
+            THE <span className="bg-[#38b6ff] text-white px-4 py-1.5 rotate-[1.5deg] inline-block border-[3.5px] border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]">ARSENAL</span>
           </h2>
-          <p className="font-body font-semibold text-black/60 max-w-sm text-sm leading-relaxed mt-4">
+          <p className="font-body font-semibold text-black/60 dark:text-zinc-400 max-w-sm text-sm leading-relaxed mt-4">
             Tactical tech stack selection. Configured with optimal stability ratings and battle-tested in live production deployments.
           </p>
         </div>
@@ -102,21 +102,21 @@ export function TheArsenal() {
             <div key={cat.key} className="space-y-6">
               
               {/* Category Header Label (Neubrutalist ribbon) */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black pb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black dark:border-white pb-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-lg border-[2.5px] border-black flex items-center justify-center shadow-[2px_2px_0px_#000] rotate-[-3deg]" style={{ background: cat.color }}>
+                  <div className="w-8 h-8 rounded-lg border-[2.5px] border-black dark:border-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] rotate-[-3deg]" style={{ background: cat.color }}>
                     <Cpu size={16} className="text-black" />
                   </div>
                   <div>
-                    <h3 className="font-display text-2xl tracking-wide text-black uppercase leading-none">
+                    <h3 className="font-display text-2xl tracking-wide text-black dark:text-white uppercase leading-none">
                       {cat.label}
                     </h3>
-                    <span className="font-accent text-[9px] font-black tracking-widest text-black/45 block mt-0.5">
+                    <span className="font-accent text-[9px] font-black tracking-widest text-black/45 dark:text-zinc-500 block mt-0.5">
                       {cat.sub}
                     </span>
                   </div>
                 </div>
-                <p className="font-body text-xs font-semibold text-black/50 max-w-md leading-relaxed sm:text-right">
+                <p className="font-body text-xs font-semibold text-black/50 dark:text-zinc-400 max-w-md leading-relaxed sm:text-right">
                   {cat.cat_desc || cat.desc}
                 </p>
               </div>
@@ -135,10 +135,10 @@ export function TheArsenal() {
                         rotate: (tool.power % 2 === 0 ? 0.8 : -0.8) 
                       }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="neo-card bg-white p-5 flex flex-col justify-between min-h-[290px] group relative select-none cursor-none"
+                      className="neo-card bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white p-5 flex flex-col justify-between min-h-[290px] group relative select-none cursor-none shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] transition-all duration-300"
                     >
                       {/* Interactive target reticle icon */}
-                      <div className="absolute top-4 right-4 text-black/10 group-hover:text-black transition-colors duration-150">
+                      <div className="absolute top-4 right-4 text-black/10 group-hover:text-black dark:text-white/10 dark:group-hover:text-white transition-colors duration-150">
                         <motion.div
                           animate={isHovered ? { rotate: 90 } : { rotate: 0 }}
                           transition={{ type: "spring", stiffness: 120 }}
@@ -154,7 +154,7 @@ export function TheArsenal() {
                             {tool.icon}
                           </span>
                           <div>
-                            <h4 className="font-display text-xl text-black tracking-wide leading-none">
+                            <h4 className="font-display text-xl text-black dark:text-white tracking-wide leading-none">
                               {tool.name}
                             </h4>
                             <div className="flex items-center gap-1.5 mt-1">
@@ -168,35 +168,35 @@ export function TheArsenal() {
                       </div>
 
                       {/* Telemetry specs sheet (Arcade layout) */}
-                      <div className="bg-[#FFFDEC] border-2 border-black rounded-lg p-3 my-4 space-y-2 relative z-10 shadow-[2px_2px_0px_#000]">
-                        <div className="grid grid-cols-2 gap-y-1.5 text-[8px] font-bold text-black/70">
+                      <div className="bg-[#FFFDEC] dark:bg-zinc-950 border-2 border-black dark:border-white rounded-lg p-3 my-4 space-y-2 relative z-10 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] transition-all duration-300">
+                        <div className="grid grid-cols-2 gap-y-1.5 text-[8px] font-bold text-black/70 dark:text-zinc-300">
                           <div>
-                            <span className="text-black/35 font-extrabold uppercase tracking-wide block">Caliber</span>
-                            <span className="font-mono">{tool.caliber}</span>
+                            <span className="text-black/35 dark:text-zinc-500 font-extrabold uppercase tracking-wide block">Caliber</span>
+                            <span className="font-mono text-black dark:text-white">{tool.caliber}</span>
                           </div>
                           <div>
-                            <span className="text-black/35 font-extrabold uppercase tracking-wide block">Ammo</span>
-                            <span className="font-mono">{tool.ammo}</span>
+                            <span className="text-black/35 dark:text-zinc-500 font-extrabold uppercase tracking-wide block">Ammo</span>
+                            <span className="font-mono text-black dark:text-white">{tool.ammo}</span>
                           </div>
                           <div>
-                            <span className="text-black/35 font-extrabold uppercase tracking-wide block">Stability</span>
-                            <span className="font-mono text-zinc-800">{tool.stability}</span>
+                            <span className="text-black/35 dark:text-zinc-500 font-extrabold uppercase tracking-wide block">Stability</span>
+                            <span className="font-mono text-zinc-800 dark:text-zinc-200">{tool.stability}</span>
                           </div>
                           <div>
-                            <span className="text-black/35 font-extrabold uppercase tracking-wide block">Speed</span>
+                            <span className="text-black/35 dark:text-zinc-500 font-extrabold uppercase tracking-wide block">Speed</span>
                             <span className="font-mono" style={{ color: cat.color }}>{tool.speed}</span>
                           </div>
                         </div>
 
                         {/* Power Capacity Bar */}
-                        <div className="pt-2 border-t border-black/10 flex items-center justify-between">
-                          <span className="font-accent text-[8px] font-black uppercase text-black/50">Capacity</span>
+                        <div className="pt-2 border-t border-black/10 dark:border-white/10 flex items-center justify-between">
+                          <span className="font-accent text-[8px] font-black uppercase text-black/50 dark:text-zinc-400">Capacity</span>
                           {renderStatBlocks(tool.power, cat.color)}
                         </div>
                       </div>
 
                       {/* Technical Description info bubble */}
-                      <p className="font-body text-[10px] font-semibold text-black/60 leading-relaxed">
+                      <p className="font-body text-[10px] font-semibold text-black/60 dark:text-zinc-400 leading-relaxed">
                         {tool.desc}
                       </p>
                     </motion.div>

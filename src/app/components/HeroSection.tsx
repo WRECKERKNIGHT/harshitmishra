@@ -12,23 +12,23 @@ interface DataCardProps {
 
 function DataCard({ title, icon, content, className }: DataCardProps) {
   return (
-    <div className={`bg-white border-[2.5px] border-black rounded-lg shadow-[3px_3px_0px_#000] overflow-hidden flex flex-col select-none ${className}`}>
+    <div className={`bg-white dark:bg-zinc-900 border-[2.5px] border-black dark:border-white rounded-lg shadow-[3px_3px_0px_#000] dark:shadow-[3px_3px_0px_#fff] overflow-hidden flex flex-col select-none transition-all duration-300 ${className}`}>
       {/* Header bar */}
-      <div className="bg-[#FFDE47] border-b-[2.5px] border-black px-2 py-1 flex items-center justify-between">
+      <div className="bg-[#FFDE47] border-b-[2.5px] border-black dark:border-white px-2 py-1 flex items-center justify-between">
         <span className="font-accent text-[9px] font-black uppercase text-black">Data</span>
-        <div className="w-3.5 h-3.5 rounded-full border-[1.5px] border-black flex items-center justify-center text-[7px] font-black bg-white cursor-none leading-none">
+        <div className="w-3.5 h-3.5 rounded-full border-[1.5px] border-black dark:border-white flex items-center justify-center text-[7px] font-black bg-white dark:bg-zinc-800 text-black dark:text-white cursor-none leading-none">
           ×
         </div>
       </div>
       {/* Content body */}
-      <div className="p-2.5 bg-white flex flex-col gap-1 text-left">
+      <div className="p-2.5 bg-white dark:bg-zinc-900 flex flex-col gap-1 text-left transition-all duration-300">
         {title && (
           <div className="flex items-center gap-1.5">
             {icon}
-            <span className="font-display text-sm font-black text-black leading-none">{title.toUpperCase()}</span>
+            <span className="font-display text-sm font-black text-black dark:text-white leading-none">{title.toUpperCase()}</span>
           </div>
         )}
-        <p className="font-body text-[10px] font-bold text-black/60 leading-tight">{content}</p>
+        <p className="font-body text-[10px] font-bold text-black/60 dark:text-zinc-400 leading-tight">{content}</p>
       </div>
     </div>
   );
@@ -102,7 +102,7 @@ export function HeroSection() {
               transition={{ delay: 0.4 }}
               className="mb-6"
             >
-              <div className="speech-bubble bg-white text-black font-accent text-sm md:text-base font-black uppercase tracking-wider rotate-[-1deg] flex items-center gap-1">
+              <div className="speech-bubble bg-white dark:bg-zinc-900 text-black dark:text-white font-accent text-sm md:text-base font-black uppercase tracking-wider rotate-[-1deg] flex items-center gap-1">
                 💥 ACTIVE ROLE: <span className="text-[#ff1694] font-extrabold">{ROLES[roleIndex]}</span> 💥
               </div>
             </motion.div>
@@ -112,9 +112,9 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-[#FFFDEC] border-[3px] border-black p-4.5 shadow-[5px_5px_0px_rgba(0,0,0,1)] max-w-md rotate-[0.5deg] mb-6"
+              className="bg-[#FFFDEC] dark:bg-zinc-900 border-[3px] border-black dark:border-white p-4.5 shadow-[5px_5px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_#fff] max-w-md rotate-[0.5deg] mb-6 transition-all duration-300"
             >
-              <p className="font-body text-[11px] md:text-xs font-bold text-black leading-relaxed">
+              <p className="font-body text-[11px] md:text-xs font-bold text-black dark:text-zinc-200 leading-relaxed">
                 "17-year-old builder from Darbhanga. I design and ship intelligent systems — from AI integrations to full-stack platforms — that actually work in production."
               </p>
             </motion.div>
