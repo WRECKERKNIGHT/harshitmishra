@@ -135,7 +135,7 @@ export function TheArsenal() {
                         rotate: (tool.power % 2 === 0 ? 0.8 : -0.8) 
                       }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="neo-card bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white p-5 flex flex-col justify-between min-h-[290px] group relative select-none cursor-none shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] transition-all duration-300"
+                      className="neo-card bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white p-5 flex flex-col justify-between min-h-[290px] group relative select-none cursor-none shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] hover:shadow-[10px_10px_0px_#000] dark:hover:shadow-[10px_10px_0px_#fff] transition-all duration-300"
                     >
                       {/* Interactive target reticle icon */}
                       <div className="absolute top-4 right-4 text-black/10 group-hover:text-black dark:text-white/10 dark:group-hover:text-white transition-colors duration-150">
@@ -150,9 +150,21 @@ export function TheArsenal() {
                       {/* Header row */}
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
-                          <span className="text-3xl filter drop-shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] select-none">
+                          <motion.span 
+                            animate={isHovered ? { 
+                              y: [0, -6, 0],
+                              rotate: [0, -4, 4, 0]
+                            } : {}}
+                            transition={{ 
+                              duration: 0.4, 
+                              ease: "easeInOut",
+                              repeat: isHovered ? Infinity : 0,
+                              repeatDelay: 0.08
+                            }}
+                            className="text-3xl filter drop-shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] select-none inline-block"
+                          >
                             {tool.icon}
-                          </span>
+                          </motion.span>
                           <div>
                             <h4 className="font-display text-xl text-black dark:text-white tracking-wide leading-none">
                               {tool.name}

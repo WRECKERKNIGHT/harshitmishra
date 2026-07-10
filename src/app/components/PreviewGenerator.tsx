@@ -144,9 +144,9 @@ export function PreviewGenerator() {
   };
 
   return (
-    <section id="preview-generator" className="relative py-28 px-6 md:px-12 overflow-hidden border-b-[6px] border-black">
+    <section id="preview-generator" className="relative py-28 px-6 md:px-12 overflow-hidden border-b-[6px] border-black dark:border-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto relative">
-        <div className="section-ghost-num right-0 top-0 text-black/5">02</div>
+        <div className="section-ghost-num right-0 top-0 text-black/5 dark:text-white/5">02</div>
 
         <motion.div 
           initial={{ opacity: 0, y: 24 }} 
@@ -155,16 +155,16 @@ export function PreviewGenerator() {
           transition={{ duration: 0.6 }} 
           className="mb-14 relative z-10"
         >
-          <div className="plasma-pill mb-5 w-fit font-bold uppercase" style={{ background: "var(--neo-pink)", color: "#ffffff" }}>
+          <div className="plasma-pill mb-5 w-fit font-bold uppercase border-2 border-black dark:border-white shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff]" style={{ background: "var(--neo-pink)", color: "#ffffff" }}>
             Interactive Engine
           </div>
-          <h2 className="font-display text-[clamp(2.2rem,6vw,4.8rem)] font-black leading-[0.9] text-black">
+          <h2 className="font-display text-[clamp(2.2rem,6vw,4.8rem)] font-black leading-[0.9] text-black dark:text-white">
             CONCEPT<br />
-            <span className="bg-[#ff1694] text-white px-4 py-1.5 rotate-[-1.5deg] inline-block border-[3.5px] border-black shadow-[4px_4px_0px_#000]">
+            <span className="bg-[#ff1694] text-white px-4 py-1.5 rotate-[-1.5deg] inline-block border-[3.5px] border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]">
               PREVIEW
             </span>
           </h2>
-          <p className="font-body font-semibold text-black/60 max-w-sm text-sm leading-relaxed mt-4">
+          <p className="font-body font-semibold text-black/60 dark:text-zinc-400 max-w-sm text-sm leading-relaxed mt-4">
             Build your project idea interactively and watch the system generate a live design mockup schema below.
           </p>
         </motion.div>

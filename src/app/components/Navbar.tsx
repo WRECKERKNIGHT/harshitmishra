@@ -61,14 +61,18 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
         {/* Desktop Navigation Links (Pushed right to prevent center overlap) */}
         <div className="hidden sm:flex items-center gap-4 md:gap-6 ml-auto mr-6 relative z-10">
           {NAV.map((n) => (
-            <button key={n.label} onClick={() => go(n.href)} className="relative cursor-none group py-1">
-              <span className={`font-accent text-xs tracking-wider font-extrabold uppercase transition-colors duration-150 ${
-                active === n.href.slice(1) ? "text-[#ff1694]" : "text-black/60 dark:text-zinc-400 group-hover:text-black dark:group-hover:text-white"
+            <button key={n.label} onClick={() => go(n.href)} className="relative cursor-none group px-3 py-1.5 transition-all">
+              {/* Neubrutalist pop-up background tag on hover */}
+              <span className="absolute inset-0 bg-[#FFDE47] dark:bg-zinc-800 border-[2.5px] border-black dark:border-white rounded-lg opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] transition-all duration-200 z-0" />
+              
+              <span className={`font-accent text-[11px] tracking-wider font-black uppercase transition-colors duration-150 relative z-10 ${
+                active === n.href.slice(1) ? "text-[#ff1694]" : "text-black/65 dark:text-zinc-400 group-hover:text-black dark:group-hover:text-white"
               }`}>
                 {n.label}
               </span>
+              
               {active === n.href.slice(1) && (
-                <div className="absolute -bottom-0.5 left-0 right-0 h-1 bg-[#ff1694] border border-black dark:border-white" />
+                <div className="absolute -bottom-0.5 left-3 right-3 h-1 bg-[#ff1694] border border-black dark:border-white z-10" />
               )}
             </button>
           ))}

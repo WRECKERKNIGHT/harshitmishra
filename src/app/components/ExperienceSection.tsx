@@ -43,9 +43,9 @@ export function ExperienceSection() {
   const ghostY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section id="experience" ref={ref} className="relative py-28 px-6 md:px-12 overflow-hidden border-b-[6px] border-black">
+    <section id="experience" ref={ref} className="relative py-28 px-6 md:px-12 overflow-hidden border-b-[6px] border-black dark:border-white transition-colors duration-300">
       <div className="max-w-7xl mx-auto relative">
-        <motion.div style={{ y: ghostY }} className="section-ghost-num left-0 top-0 text-black/5">03</motion.div>
+        <motion.div style={{ y: ghostY }} className="section-ghost-num left-0 top-0 text-black/5 dark:text-white/5">03</motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -54,12 +54,12 @@ export function ExperienceSection() {
           transition={{ duration: 0.6 }}
           className="mb-16 relative z-10"
         >
-          <div className="plasma-pill mb-5 w-fit font-bold uppercase" style={{ background: "var(--neo-green)", color: "#000000" }}>
+          <div className="plasma-pill mb-5 w-fit font-bold uppercase border-2 border-black dark:border-white shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff]" style={{ background: "var(--neo-green)", color: "#000000" }}>
             Operational Log
           </div>
-          <h2 className="font-display text-[clamp(2.2rem,6vw,4.8rem)] font-black leading-[0.9] text-black">
+          <h2 className="font-display text-[clamp(2.2rem,6vw,4.8rem)] font-black leading-[0.9] text-black dark:text-white">
             EXPERIENCE &amp;<br />
-            <span className="bg-[#52D3D8] text-black px-4 py-1.5 rotate-[1.5deg] inline-block border-[3.5px] border-black shadow-[4px_4px_0px_#000] mt-3">
+            <span className="bg-[#52D3D8] text-black px-4 py-1.5 rotate-[1.5deg] inline-block border-[3.5px] border-black dark:border-white shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff] mt-3">
               SKILLS
             </span>
           </h2>
@@ -70,7 +70,7 @@ export function ExperienceSection() {
           <div className="lg:col-span-7 space-y-6 relative">
             {/* Thick black vertical timeline axis */}
             <div 
-              className="absolute left-6 top-6 bottom-6 w-1 bg-black hidden md:block" 
+              className="absolute left-6 top-6 bottom-6 w-1 bg-black dark:bg-white hidden md:block" 
             />
 
             {TIMELINE.map((item, i) => (
@@ -80,26 +80,26 @@ export function ExperienceSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative md:pl-16"
+                className="relative md:pl-16 font-sans"
               >
                 {/* Comic timeline node */}
                 <div 
-                  className="absolute left-[14px] top-8 w-6 h-6 rounded-full border-3 border-black hidden md:block shadow-[2px_2px_0px_#000] z-10"
+                  className="absolute left-[14px] top-8 w-6 h-6 rounded-full border-3 border-black dark:border-white hidden md:block shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] z-10"
                   style={{ background: item.accent }}
                 />
                 
                 <div 
-                  className="neo-card p-6 relative overflow-hidden bg-white"
+                  className="neo-card p-6 relative overflow-hidden bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] hover:-translate-y-0.5 hover:shadow-[7.5px_7.5px_0px_#000] dark:hover:shadow-[7.5px_7.5px_0px_#fff] transition-all duration-300"
                   style={{
                     transform: `rotate(${(i % 2 === 0 ? 1 : -1) * 1}deg)`
                   }}
                 >
-                  <div className="flex items-start justify-between gap-4 flex-wrap mb-3 pb-3 border-b-2 border-black/10">
-                    <h3 className="font-display text-xl font-black text-black">
+                  <div className="flex items-start justify-between gap-4 flex-wrap mb-3 pb-3 border-b-2 border-black/10 dark:border-white/10">
+                    <h3 className="font-display text-xl font-black text-black dark:text-white">
                       {item.role.toUpperCase()}
                     </h3>
                     <span 
-                      className="font-accent text-[10px] tracking-wider px-3 py-1 rounded-md border-2 border-black font-black uppercase shadow-[2px_2px_0px_#000] text-black"
+                      className="font-accent text-[10px] tracking-wider px-3 py-1 rounded-md border-2 border-black dark:border-white font-black uppercase shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] text-black"
                       style={{ background: item.accent }}
                     >
                       {item.period}
@@ -110,7 +110,7 @@ export function ExperienceSection() {
                     TYPE: {item.type}
                   </p>
                   
-                  <p className="font-body text-xs font-semibold text-black/60 leading-relaxed mb-4">
+                  <p className="font-body text-xs font-semibold text-black/60 dark:text-zinc-400 leading-relaxed mb-4">
                     "{item.blurb}"
                   </p>
 
@@ -118,12 +118,12 @@ export function ExperienceSection() {
                     {item.wins.map((w, wi) => (
                       <div key={wi} className="flex items-center gap-3">
                         <div 
-                          className="w-4 h-4 rounded border-2 border-black flex items-center justify-center flex-shrink-0 shadow-[1px_1px_0px_#000]"
+                          className="w-4 h-4 rounded border-2 border-black dark:border-white flex items-center justify-center flex-shrink-0 shadow-[1px_1px_0px_#000] dark:shadow-[1px_1px_0px_#fff] mt-0.5"
                           style={{ background: item.accent }}
                         >
                           <Check size={10} className="stroke-[3.5px] text-black" />
                         </div>
-                        <span className="font-body text-xs font-bold text-black/75">{w}</span>
+                        <span className="font-body text-xs font-bold text-black/75 dark:text-zinc-300">{w}</span>
                       </div>
                     ))}
                   </div>
@@ -141,27 +141,27 @@ export function ExperienceSection() {
             className="lg:col-span-5 space-y-6"
           >
             {/* Skill Bars */}
-            <div className="neo-card p-6 bg-white rotate-[-1deg]">
-              <p className="font-accent text-[11px] tracking-[0.2em] text-black/40 uppercase mb-6 font-black">
+            <div className="neo-card p-6 bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] rotate-[-1deg] transition-all duration-300 hover:scale-[1.01] hover:-translate-y-0.5">
+              <p className="font-accent text-[11px] tracking-[0.2em] text-black/40 dark:text-zinc-500 uppercase mb-6 font-black">
                 SKILL PROFICIENCY
               </p>
               <div className="space-y-5">
                 {SKILLS.map((sk, i) => (
                   <div key={i}>
                     <div className="flex justify-between mb-1.5 items-end">
-                      <span className="font-body text-xs font-bold text-black">{sk.name}</span>
-                      <span className="font-accent text-xs font-black" style={{ color: sk.col === '#FFDE47' ? '#000000' : sk.col }}>
+                      <span className="font-body text-xs font-bold text-black dark:text-white">{sk.name}</span>
+                      <span className="font-accent text-xs font-black text-black dark:text-white">
                         {sk.pct}%
                       </span>
                     </div>
                     {/* Comic-style thick progress bar */}
-                    <div className="h-6 bg-white border-[3px] border-black rounded-lg overflow-hidden shadow-[2px_2px_0px_#000] relative">
+                    <div className="h-6 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg overflow-hidden shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] relative transition-colors duration-300">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${sk.pct}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: i * 0.08 }}
-                        className="h-full border-r-[3.5px] border-black"
+                        className="h-full border-r-[3.5px] border-black dark:border-white"
                         style={{ backgroundColor: sk.col }}
                       />
                     </div>
@@ -171,8 +171,8 @@ export function ExperienceSection() {
             </div>
 
             {/* Quick Facts Panel */}
-            <div className="neo-card p-6 bg-white rotate-[1deg]">
-              <p className="font-accent text-[11px] tracking-[0.2em] text-black/40 uppercase mb-4 font-black">
+            <div className="neo-card p-6 bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] rotate-[1deg] transition-all duration-300 hover:scale-[1.01] hover:-translate-y-0.5">
+              <p className="font-accent text-[11px] tracking-[0.2em] text-black/40 dark:text-zinc-500 uppercase mb-4 font-black">
                 SPECIFICATIONS
               </p>
               {[
@@ -181,11 +181,11 @@ export function ExperienceSection() {
                 { k: "Interests", v: "Pop art, Comic Panels, WebGL & AI" },
                 { k: "Availability", v: "Immediate Freelance / Contract" },
               ].map((f) => (
-                <div key={f.k} className="flex justify-between py-2.5 border-b-2 border-black/10 last:border-0 items-center">
-                  <span className="font-accent text-[10px] tracking-wider text-black/40 font-black uppercase">
+                <div key={f.k} className="flex justify-between py-2.5 border-b-2 border-black/10 dark:border-white/10 last:border-0 items-center">
+                  <span className="font-accent text-[10px] tracking-wider text-black/40 dark:text-zinc-500 font-black uppercase">
                     {f.k}
                   </span>
-                  <span className="font-body text-xs font-bold text-black">
+                  <span className="font-body text-xs font-bold text-black dark:text-white">
                     {f.v}
                   </span>
                 </div>
