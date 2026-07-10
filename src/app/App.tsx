@@ -7,6 +7,7 @@ import { HeroSection } from "./components/HeroSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { PreviewGenerator } from "./components/PreviewGenerator";
 import { ExperienceSection } from "./components/ExperienceSection";
+import { TheArsenal } from "./components/TheArsenal";
 import { ContactSection } from "./components/ContactSection";
 
 function ScrollProgress() {
@@ -44,6 +45,7 @@ export default function App() {
           <ServicesSection />
           <PreviewGenerator />
           <ExperienceSection />
+          <TheArsenal />
           <ContactSection />
         </motion.div>
       )}
