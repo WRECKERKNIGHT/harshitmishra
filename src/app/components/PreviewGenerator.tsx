@@ -161,101 +161,310 @@ export function PreviewGenerator() {
             </button>
           </motion.div>
 
-          {/* Output Panel */}
+          {/* Output Panel (Real-looking standard website previews) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }} 
             whileInView={{ opacity: 1, x: 0 }} 
             viewport={{ once: true }} 
             transition={{ duration: 0.5, delay: 0.1 }} 
-            className="neo-card p-6 md:p-8 bg-white min-h-[480px] flex flex-col justify-between"
+            className="neo-card bg-[#18181b] border-[3px] border-black rounded-2xl min-h-[520px] flex flex-col overflow-hidden shadow-[6px_6px_0px_#000] p-0"
           >
-            <div className="flex items-center gap-2 mb-6 pb-4 border-b-2 border-black">
-              {["var(--neo-cyan)", "var(--neo-pink)", "var(--neo-yellow)"].map((c, i) => (
-                <div key={i} className="w-3 h-3 rounded-full border border-black" style={{ background: c }} />
-              ))}
-              <span className="ml-2 font-accent font-black text-[10px] tracking-widest text-black/40 uppercase">
-                RENDER_OUTPUT
-              </span>
+            {/* Browser Header Bar */}
+            <div className="h-10 bg-[#09090b] border-b-2 border-black flex items-center justify-between px-4 select-none shrink-0">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56] border border-black/20" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] border border-black/20" />
+                <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f] border border-black/20" />
+              </div>
+              <div className="bg-[#18181b] border border-black/30 rounded px-4 py-0.5 text-[9px] text-zinc-400 font-mono tracking-wide w-48 text-center truncate">
+                {result ? `${result.name.toLowerCase().replace(/\s+/g, '-')}.com` : 'awaiting-engine-input.io'}
+              </div>
+              <div className="w-10" />
             </div>
 
-            <div className="flex-grow flex items-center justify-center">
+            {/* Live Interactive Rendering Area */}
+            <div className="flex-grow bg-[#09090b] relative overflow-y-auto max-h-[480px] flex flex-col">
               <AnimatePresence mode="wait">
                 {result ? (
                   <motion.div 
-                    key="result" 
-                    initial={{ opacity: 0, scale: 0.95 }} 
+                    key={result.type} 
+                    initial={{ opacity: 0, scale: 0.98 }} 
                     animate={{ opacity: 1, scale: 1 }} 
                     exit={{ opacity: 0 }} 
-                    transition={{ duration: 0.3 }} 
-                    className="w-full space-y-5"
+                    transition={{ duration: 0.25 }}
+                    className="w-full h-full flex flex-col flex-grow"
                   >
-                    <div 
-                      className="neo-card p-5 bg-white border-l-[12px]" 
-                      style={{ borderLeftColor: result.color }}
-                    >
-                      <div className="flex items-center gap-4 mb-4">
-                        <span className="text-4xl">{TYPE_MAP[result.type]?.icon}</span>
-                        <div>
-                          <h3 className="font-display text-2xl text-black leading-tight">
-                            {result.name}
-                          </h3>
-                          <span 
-                            className="font-accent text-[9px] font-black tracking-wider px-2 py-0.5 rounded-md border-2 border-black inline-block mt-1" 
-                            style={{ background: result.color, color: "#000" }}
-                          >
-                            {TYPE_MAP[result.type]?.label.toUpperCase()}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="font-body text-xs font-semibold text-black/60 leading-relaxed">
-                        "{result.desc}"
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 bg-[#FFFDEC] border-[3px] border-black p-4 rounded-lg shadow-[3px_3px_0px_#000]">
-                      {TYPE_MAP[result.type]?.features.map((f, i) => (
-                        <div key={i} className="flex items-center gap-3 py-1 border-b border-black/5 last:border-0">
-                          <div className="w-4 h-4 rounded-full bg-white border-2 border-black flex items-center justify-center">
-                            <Check size={10} className="stroke-[3.5px] text-black" />
+                    {result.type === "website" && (
+                      <div className="w-full h-full bg-[#09090b] text-white flex flex-col font-sans text-left flex-grow">
+                        {/* Nav */}
+                        <div className="h-11 border-b border-zinc-800 flex items-center justify-between px-4 shrink-0 bg-[#09090b]">
+                          <span className="font-bold text-xs tracking-wide" style={{ color: result.color }}>{result.name}</span>
+                          <div className="flex gap-3 text-[9px] text-zinc-400 font-semibold">
+                            <span>Features</span>
+                            <span>Pricing</span>
+                            <span>Docs</span>
                           </div>
-                          <span className="font-body text-xs font-bold text-black">{f}</span>
+                          <button className="text-[8px] font-bold px-2 py-0.5 rounded" style={{ backgroundColor: result.color, color: '#000' }}>
+                            Launch App
+                          </button>
                         </div>
-                      ))}
-                    </div>
+                        
+                        {/* Hero */}
+                        <div className="p-5 space-y-3.5 text-center max-w-sm mx-auto my-auto py-8">
+                          <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-[8px] text-zinc-400 font-semibold mx-auto">
+                            <span className="w-1 h-1 rounded-full animate-ping" style={{ backgroundColor: result.color }} />
+                            Introducing Version 2.0
+                          </div>
+                          <h1 className="text-xl md:text-2xl font-extrabold tracking-tight leading-tight text-white">
+                            Power up your <span style={{ color: result.color }}>{result.name}</span> workflow
+                          </h1>
+                          <p className="text-[10px] text-zinc-400 leading-normal font-normal">
+                            {result.desc}
+                          </p>
+                          <div className="flex justify-center gap-2.5 pt-1">
+                            <button className="text-[9px] font-bold px-3 py-1.5 rounded-md text-black transition-transform hover:scale-95" style={{ backgroundColor: result.color }}>
+                              Get Started Free
+                            </button>
+                            <button className="text-[9px] font-bold px-3 py-1.5 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-300 transition-colors hover:bg-zinc-800">
+                              Book Demo
+                            </button>
+                          </div>
+                        </div>
 
-                    {/* Comic Browser/App mock wireframe */}
-                    <div className="rounded-xl overflow-hidden border-[3px] border-black bg-[#FFFDEC] shadow-[3px_3px_0px_#000]">
-                      <div className="h-7 flex items-center gap-1.5 px-3 border-b-2 border-black bg-white">
-                        {[0, 1, 2].map(i => (
-                          <div key={i} className="w-2.5 h-2.5 rounded-full border border-black bg-black/10" />
-                        ))}
-                      </div>
-                      <div className="p-4 space-y-3">
-                        <div className="h-5 rounded-md border-2 border-black" style={{ background: result.color }} />
-                        <div className="grid grid-cols-3 gap-2">
-                          {[0, 1, 2].map(i => (
-                            <div 
-                              key={i} 
-                              className="h-10 rounded-md border-2 border-black" 
-                              style={{ background: i === 0 ? result.color : "#ffffff" }} 
-                            />
-                          ))}
+                        {/* Small mock screen */}
+                        <div className="px-4 pb-4 mt-auto">
+                          <div className="border border-zinc-850 rounded-lg overflow-hidden bg-zinc-950 p-2 space-y-1.5">
+                            <div className="flex justify-between items-center border-b border-zinc-850 pb-1.5">
+                              <div className="flex gap-1">
+                                <div className="w-1.5 h-1.5 rounded-full bg-zinc-800" />
+                                <div className="w-1.5 h-1.5 rounded-full bg-zinc-800" />
+                              </div>
+                              <div className="h-1.5 w-12 bg-zinc-900 rounded-full" />
+                            </div>
+                            <div className="h-14 bg-zinc-900/30 rounded flex items-center justify-center relative">
+                              <div className="h-8 w-[70%] border border-dashed border-zinc-800 rounded flex items-center justify-center text-[9px] text-zinc-600 font-mono">
+                                ANALYTICS_GRAPH_PREVIEW
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    )}
+
+                    {result.type === "ecommerce" && (
+                      <div className="w-full h-full bg-zinc-50 text-zinc-900 flex flex-col font-sans text-left flex-grow">
+                        {/* Nav */}
+                        <div className="h-11 bg-white border-b border-zinc-200 flex items-center justify-between px-4 shrink-0">
+                          <span className="font-extrabold text-xs tracking-tight text-zinc-900">{result.name}<span style={{ color: result.color }}>.</span></span>
+                          <div className="flex gap-3 text-[9px] text-zinc-500 font-bold">
+                            <span>Shop</span>
+                            <span>Deals</span>
+                            <span>Cart (0)</span>
+                          </div>
+                        </div>
+                        
+                        {/* Hero Product Spotlight */}
+                        <div className="grid grid-cols-2 gap-4 p-5 my-auto items-center">
+                          <div className="space-y-2">
+                            <span className="text-[7px] font-black tracking-widest text-zinc-400 uppercase">NEW ARRIVAL</span>
+                            <h2 className="text-lg md:text-xl font-black tracking-tight text-zinc-900 leading-tight">
+                              {result.name}
+                            </h2>
+                            <p className="text-[9px] text-zinc-500 leading-normal">
+                              {result.desc}
+                            </p>
+                            <div className="flex items-baseline gap-1.5 pt-0.5">
+                              <span className="text-base font-extrabold text-zinc-900">$189.00</span>
+                              <span className="text-[9px] text-zinc-400 line-through">$249.00</span>
+                            </div>
+                            <button className="w-full text-[9px] font-bold px-3 py-1.5 rounded-md text-white transition-opacity hover:opacity-90 flex items-center justify-center gap-1.5" style={{ backgroundColor: result.color }}>
+                              Add to Cart
+                            </button>
+                          </div>
+
+                          <div className="aspect-square bg-white border border-zinc-200 rounded-xl flex items-center justify-center p-4 relative overflow-hidden">
+                            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `radial-gradient(${result.color} 1px, transparent 1px)`, backgroundSize: '10px 10px' }} />
+                            <div className="w-16 h-16 rounded-full flex items-center justify-center text-4xl shadow-sm bg-zinc-50 border border-zinc-200 z-10 animate-bounce">
+                              🎁
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {result.type === "crm" && (
+                      <div className="w-full h-full bg-zinc-950 text-white flex font-sans text-left flex-grow">
+                        {/* Sidebar */}
+                        <div className="w-12 border-r border-zinc-850 bg-zinc-900/30 p-2 flex flex-col gap-3.5 items-center shrink-0">
+                          <div className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-black text-white" style={{ backgroundColor: result.color }}>
+                            {result.name.charAt(0)}
+                          </div>
+                          <div className="w-5 h-5 rounded bg-zinc-800 flex items-center justify-center text-[9px]">📊</div>
+                          <div className="w-5 h-5 rounded bg-zinc-800/40 flex items-center justify-center text-[9px] text-zinc-600">👥</div>
+                          <div className="w-5 h-5 rounded bg-zinc-800/40 flex items-center justify-center text-[9px] text-zinc-600">⚙️</div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-grow flex flex-col p-4 overflow-y-auto space-y-3.5 flex-grow">
+                          <div className="flex justify-between items-center">
+                            <div>
+                              <h3 className="text-[8px] font-bold text-zinc-500">Dashboard / pipeline</h3>
+                              <h2 className="text-[11px] font-black text-white uppercase tracking-wider">{result.name}</h2>
+                            </div>
+                            <div className="w-5 h-5 rounded-full bg-zinc-800 border border-zinc-700" />
+                          </div>
+
+                          {/* KPI Row */}
+                          <div className="grid grid-cols-3 gap-1.5">
+                            <div className="bg-zinc-900/60 border border-zinc-850 p-1.5 rounded space-y-0.5">
+                              <span className="text-[7px] text-zinc-500 uppercase font-semibold">Sales</span>
+                              <div className="text-[10px] font-bold">$14.2K</div>
+                              <div className="text-[6px]" style={{ color: result.color }}>+18%</div>
+                            </div>
+                            <div className="bg-zinc-900/60 border border-zinc-850 p-1.5 rounded space-y-0.5">
+                              <span className="text-[7px] text-zinc-500 uppercase font-semibold">Convs</span>
+                              <div className="text-[10px] font-bold">4.2%</div>
+                              <div className="text-[6px]" style={{ color: result.color }}>+2.1%</div>
+                            </div>
+                            <div className="bg-zinc-900/60 border border-zinc-850 p-1.5 rounded space-y-0.5">
+                              <span className="text-[7px] text-zinc-500 uppercase font-semibold">Leads</span>
+                              <div className="text-[10px] font-bold truncate">312</div>
+                              <div className="text-[6px]" style={{ color: result.color }}>Stable</div>
+                            </div>
+                          </div>
+
+                          {/* Pipeline Table */}
+                          <div className="bg-zinc-900/60 border border-zinc-850 rounded p-2.5 space-y-1.5">
+                            <h4 className="text-[8px] font-black text-zinc-500 uppercase tracking-widest">Active Pipeline</h4>
+                            <div className="space-y-1 text-[7px]">
+                              <div className="flex justify-between py-0.5 border-b border-zinc-800 text-zinc-500 font-bold">
+                                <span>Client</span>
+                                <span>Status</span>
+                                <span>Value</span>
+                              </div>
+                              <div className="flex justify-between items-center py-1 border-b border-zinc-850/40">
+                                <span className="text-zinc-200 truncate max-w-[70px]">Darbhanga Blds</span>
+                                <span className="px-1 py-0.2 rounded-full text-[6px]" style={{ backgroundColor: `${result.color}22`, color: result.color }}>Active</span>
+                                <span className="text-zinc-200 font-bold">$8.5K</span>
+                              </div>
+                              <div className="flex justify-between items-center py-1">
+                                <span className="text-zinc-200 truncate max-w-[70px]">System Corp</span>
+                                <span className="px-1 py-0.2 rounded-full text-[6px]" style={{ backgroundColor: `${result.color}22`, color: result.color }}>Proposal</span>
+                                <span className="text-zinc-200 font-bold">$12.0K</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {result.type === "automation" && (
+                      <div className="w-full h-full bg-[#0a0a0c] text-white flex flex-col font-sans text-left relative overflow-hidden flex-grow">
+                        {/* Grid bg */}
+                        <div className="absolute inset-0 pointer-events-none opacity-20" style={{ backgroundImage: `radial-gradient(zinc-800 1px, transparent 1px)`, backgroundSize: '12px 12px' }} />
+
+                        {/* Header */}
+                        <div className="h-11 border-b border-zinc-850 flex items-center justify-between px-4 shrink-0 relative z-10 bg-[#0a0a0c]/80 backdrop-blur-sm">
+                          <span className="font-bold text-[10px]" style={{ color: result.color }}>{result.name} Logic</span>
+                          <span className="text-[7px] font-black tracking-widest text-[#39ff14] border border-[#39ff14]/30 px-1.5 py-0.2 rounded bg-[#39ff14]/10">ACTIVE RUNNER</span>
+                        </div>
+
+                        {/* Node canvas */}
+                        <div className="flex-grow p-4 flex flex-col gap-3 items-center justify-center relative z-10 my-auto">
+                          {/* Node 1 */}
+                          <div className="w-36 bg-zinc-900 border border-zinc-800 p-1.5 rounded flex items-center gap-2 shadow relative">
+                            <div className="w-5 h-5 rounded bg-green-500/20 text-green-500 border border-green-500/30 flex items-center justify-center text-[10px]">🔌</div>
+                            <div>
+                              <h4 className="text-[7px] font-bold text-zinc-500">Trigger</h4>
+                              <p className="text-[8px] font-black text-white">Webhook In</p>
+                            </div>
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full border border-black" style={{ backgroundColor: result.color }} />
+                          </div>
+
+                          <div className="h-4 border-l border-dashed border-zinc-700" />
+
+                          {/* Node 2 */}
+                          <div className="w-40 bg-zinc-900 border p-1.5 rounded flex items-center gap-2 shadow-md relative" style={{ borderColor: result.color }}>
+                            <div className="w-5 h-5 rounded text-white flex items-center justify-center text-[10px]" style={{ backgroundColor: result.color }}>🤖</div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-[7px] font-black text-zinc-500 uppercase">{result.name}</h4>
+                              <p className="text-[8px] font-black text-white truncate">{result.desc}</p>
+                            </div>
+                            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-zinc-900 border border-black" />
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full border border-black" style={{ backgroundColor: result.color }} />
+                          </div>
+
+                          <div className="h-4 border-l border-dashed border-zinc-700" />
+
+                          {/* Node 3 */}
+                          <div className="w-36 bg-zinc-900 border border-zinc-800 p-1.5 rounded flex items-center gap-2 shadow relative">
+                            <div className="w-5 h-5 rounded bg-pink-500/20 text-pink-500 border border-pink-500/30 flex items-center justify-center text-[10px]">💬</div>
+                            <div>
+                              <h4 className="text-[7px] font-bold text-zinc-500">Action</h4>
+                              <p className="text-[8px] font-black text-white">Slack Notify</p>
+                            </div>
+                            <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-zinc-900 border border-black" />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {result.type === "app" && (
+                      <div className="w-full h-full bg-zinc-950 text-white flex items-center justify-center p-3 font-sans text-left flex-grow">
+                        <div className="w-[180px] h-[260px] border-[3px] border-zinc-800 rounded-[20px] overflow-hidden bg-zinc-900 flex flex-col relative shadow-md">
+                          {/* Notch */}
+                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-3 bg-zinc-800 rounded-b-lg z-20 flex items-center justify-center" />
+
+                          {/* Status */}
+                          <div className="h-6 bg-zinc-900 flex items-end justify-between px-3 pb-0.5 select-none text-[6px] text-zinc-500 font-bold z-10 shrink-0">
+                            <span>9:41</span>
+                            <span>📶 🔋</span>
+                          </div>
+
+                          {/* App Header */}
+                          <div className="h-8 bg-zinc-900/60 border-b border-zinc-800 flex items-center gap-1.5 px-2 z-10 shrink-0">
+                            <div className="w-4.5 h-4.5 rounded-full bg-zinc-800 flex items-center justify-center text-[8px] text-zinc-400">←</div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-[8px] font-bold text-white truncate">{result.name} Hub</h3>
+                              <span className="text-[6px] text-green-500 font-semibold flex items-center gap-0.5"><span className="w-0.5 h-0.5 rounded-full bg-green-500 animate-ping" /> Online</span>
+                            </div>
+                          </div>
+
+                          {/* Chat */}
+                          <div className="flex-grow p-2 space-y-1.5 overflow-y-auto bg-zinc-950 text-[7px] flex flex-col justify-end">
+                            <div className="max-w-[80%] bg-zinc-800 text-zinc-200 p-1.5 rounded-lg rounded-tl-none self-start leading-tight">
+                              How does it run?
+                            </div>
+                            <div className="max-w-[80%] p-1.5 rounded-lg rounded-tr-none text-white self-end font-semibold shadow leading-tight" style={{ backgroundColor: result.color, color: '#000' }}>
+                              {result.desc}
+                            </div>
+                          </div>
+
+                          {/* Input */}
+                          <div className="h-8 bg-zinc-900 border-t border-zinc-800 p-1 flex items-center gap-1 shrink-0">
+                            <div className="flex-grow h-full bg-zinc-950 border border-zinc-800 rounded-full px-2 flex items-center text-[6px] text-zinc-600">
+                              Type reply...
+                            </div>
+                            <div className="w-4.5 h-4.5 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0" style={{ backgroundColor: result.color, color: '#000' }}>
+                              ➔
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
                 ) : (
-                  <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center">
+                  <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center my-auto px-6 py-12">
                     <motion.div 
                       animate={{ scale: [1, 1.05, 1], rotate: [0, 2, -2, 0] }} 
                       transition={{ duration: 4, repeat: Infinity }}
-                      className="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center bg-[#FFDE47] border-[3px] border-black shadow-[3px_3px_0px_#000]"
+                      className="w-14 h-14 rounded-xl mx-auto mb-4 flex items-center justify-center bg-[#FFDE47] border-[3px] border-black shadow-[3px_3px_0px_#000]"
                     >
-                      <Palette size={26} className="text-black stroke-[2.5px]" />
+                      <Palette size={24} className="text-black stroke-[2.5px]" />
                     </motion.div>
-                    <p className="font-display text-xl font-black text-black mb-2">AWAITING ENGINE INPUT</p>
-                    <p className="font-body text-xs text-black/50 font-bold max-w-xs mx-auto leading-relaxed">
-                      Fill out the specification cards on the left panel to trigger the wireframe mockup builder.
+                    <p className="font-display text-lg font-black text-zinc-100 mb-1">AWAITING ENGINE INPUT</p>
+                    <p className="font-body text-[10px] text-zinc-500 font-bold max-w-[240px] mx-auto leading-relaxed">
+                      Fill out the specification cards on the left panel to trigger the mockup renderer.
                     </p>
                   </motion.div>
                 )}
