@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { CustomCursor } from "./components/CustomCursor";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
@@ -26,7 +25,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen overflow-x-clip" style={{ background: "#FFFDEC" }}>
-      <CustomCursor />
 
       {/* Comic Halftone background */}
       <div className="global-bg" />

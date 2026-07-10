@@ -31,27 +31,17 @@ body {
   color: #000000;
   overflow-x: clip; /* clip does NOT break position: sticky! */
   -webkit-font-smoothing: antialiased;
-  cursor: none; /* Custom cartoon target crosshair */
 }
 
-/* Hide cursor and show custom pointer ONLY on devices with fine pointer (mouse/trackpad) */
-@media (pointer: fine) {
-  html, body, *, a, button, input, select, textarea, [role="button"] {
-    cursor: none !important;
-  }
-  .cursor-outer {
-    display: block !important;
-  }
+/* Standard browser cursors */
+a, button, [role="button"], select, input[type="submit"] {
+  cursor: pointer !important;
 }
-
-/* Restore default cursors and hide custom pointer on touch devices */
-@media (pointer: coarse) {
-  html, body, *, a, button, input, select, textarea, [role="button"] {
-    cursor: auto !important;
-  }
-  .cursor-outer {
-    display: none !important;
-  }
+input, textarea {
+  cursor: text !important;
+}
+html, body {
+  cursor: default !important;
 }
 
 /* Bold retro scrollbar */
