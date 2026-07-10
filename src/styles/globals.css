@@ -386,3 +386,29 @@ html, body {
   -webkit-text-stroke: 3px rgba(255, 255, 255, 0.05) !important;
   color: transparent !important;
 }
+
+/* Dynamic pointer laser current loop */
+@keyframes laser-dash-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+.animate-laser-dash {
+  stroke-dasharray: 8, 6;
+  animation: laser-dash-flow 1.2s linear infinite;
+}
+
+/* HUD Scanning Sweep animation */
+@keyframes scan-sweep {
+  0%, 100% {
+    top: 12%;
+    opacity: 0.2;
+  }
+  50% {
+    top: 86%;
+    opacity: 0.6;
+  }
+}
+.animate-scan-sweep {
+  animation: scan-sweep 4.2s ease-in-out infinite;
+}

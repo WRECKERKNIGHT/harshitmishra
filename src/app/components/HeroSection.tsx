@@ -143,8 +143,20 @@ export function HeroSection() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="relative w-full max-w-[420px] aspect-square flex items-center justify-center"
+              className="relative w-full max-w-[420px] aspect-square flex items-center justify-center group/brain"
             >
+              {/* Spinning target grid behind brain */}
+              <div className="absolute w-[82%] h-[82%] rounded-full border-2 border-dashed border-black/10 dark:border-white/10 z-0 animate-[spin_45s_linear_infinite] pointer-events-none transition-colors duration-300" />
+              <div className="absolute w-[68%] h-[68%] rounded-full border border-dotted border-black/5 dark:border-white/5 z-0 animate-[spin_20s_linear_infinite_reverse] pointer-events-none transition-colors duration-300" />
+
+              {/* Scanning sweep laser line */}
+              <div className="absolute left-[11%] right-[11%] h-[2px] bg-[#ff1694] dark:bg-[#38b6ff] opacity-40 z-20 pointer-events-none animate-scan-sweep border-t border-[#ff1694] dark:border-[#38b6ff]" />
+
+              {/* Monospace telemetry logs HUD */}
+              <div className="absolute bottom-[-6%] right-[4%] bg-[#FFFDEC] dark:bg-zinc-950 border-2 border-black dark:border-white rounded px-2.5 py-1 font-mono text-[7px] tracking-wider text-black dark:text-zinc-400 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] z-30 select-none animate-pulse transition-all duration-300">
+                SYS_FEED: ACTIVE // LAT: 25.5° N // HZ: 60.0
+              </div>
+
               {/* Responsive scaling brain illustration */}
               <img 
                 src="/brain-globe-clean.png" 

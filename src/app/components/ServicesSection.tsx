@@ -529,7 +529,7 @@ export function ServicesSection() {
                   strokeWidth="3.5"
                   fill="none"
                   strokeLinecap="round"
-                  className="stroke-black dark:stroke-white transition-all duration-300"
+                  className="stroke-black dark:stroke-white transition-all duration-300 animate-laser-dash"
                 />
               </AnimatePresence>
             </svg>
