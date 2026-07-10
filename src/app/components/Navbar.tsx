@@ -10,7 +10,12 @@ const NAV = [
   { label: "Contact", href: "#contact" },
 ];
 
-export function Navbar() {
+interface NavbarProps {
+  theme: string;
+  toggleTheme: () => void;
+}
+
+export function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
 
@@ -69,8 +74,16 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* CTA Button */}
-        <div className="hidden sm:block">
+        {/* CTA Button & Theme Toggle (Desktop) */}
+        <div className="hidden sm:flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            className="w-9 h-9 rounded-lg border-2 border-black flex items-center justify-center bg-white shadow-[2px_2px_0px_#000] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[1px_1px_0px_#000] transition-all select-none font-bold text-base"
+            title={theme === "dark" ? "Activate Light Mode" : "Activate Dark Mode"}
+          >
+            {theme === "dark" ? "☀️" : "🌙"}
+          </button>
+          
           <button 
             onClick={() => go("#contact")} 
             className="clay-btn py-2 px-5 text-xs font-black text-black"
@@ -79,10 +92,20 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button onClick={() => setOpen(!open)} className="sm:hidden text-black cursor-none">
-          {open ? <X size={20} className="stroke-[3px]" /> : <Menu size={20} className="stroke-[3px]" />}
-        </button>
+        {/* Mobile Actions */}
+        <div className="flex sm:hidden items-center gap-2">
+          {/* Mobile Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="w-8 h-8 rounded-lg border-2 border-black flex items-center justify-center bg-white shadow-[2px_2px_0px_#000] font-bold text-sm"
+          >
+            {theme === "dark" ? "☀️" : "🌙"}
+          </button>
+
+          <button onClick={() => setOpen(!open)} className="text-black cursor-none">
+            {open ? <X size={20} className="stroke-[3px]" /> : <Menu size={20} className="stroke-[3px]" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}

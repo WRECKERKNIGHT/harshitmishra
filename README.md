@@ -25,6 +25,9 @@ An interactive loadout matrix above the contact sheet styled like retro-game wea
 * **Tactical Gear** (Git, Docker, Figma, VS Code)
 Every card has hover-tilt springs, telemetry stats (Caliber, Ammo, Speed), and glowing status loaders.
 
+### 4. Cyber-Brutalism Dark Mode
+A floating theme switcher on the navigation bar that toggles a high-contrast Cyber-Brutalism dark mode theme. It overrides all neubrutalist card backgrounds, borders, scrollbar tracks, selection highlights, and parallax floating svg assets instantly to keep layouts perfectly legible and gorgeous in low-light environments. Persists automatically using local storage!
+
 ---
 
 ## ⚡ Running Locally

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { Navbar } from "./components/Navbar";
@@ -22,9 +22,29 @@ function ScrollProgress() {
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || "light";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === "light" ? "dark" : "light");
+  };
 
   return (
-    <div className="min-h-screen overflow-x-clip" style={{ background: "#FFFDEC" }}>
+    <div className="min-h-screen overflow-x-clip transition-colors duration-300">
 
       {/* Comic Halftone background */}
       <div className="global-bg" />
@@ -38,7 +58,7 @@ export default function App() {
           transition={{ duration: 0.5 }}
         >
           <ScrollProgress />
-          <Navbar />
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
           <HeroSection />
           <ServicesSection />
           <PreviewGenerator />

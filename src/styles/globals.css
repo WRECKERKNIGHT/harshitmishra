@@ -289,3 +289,155 @@ html, body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── DARK THEME OVERLAYS (CYBER-BRUTALISM) ─────────── */
+.dark {
+  --void: #09090b;
+  --bg-cream: #09090b;
+  --text-color: #ffffff;
+  --card-bg: #18181b;
+  --border-color: #ffffff;
+  --shadow-color: #ffffff;
+  --halftone-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Base resets for dark mode */
+.dark, 
+.dark html, 
+.dark body, 
+.dark .global-bg, 
+.dark .sticky-story {
+  background-color: var(--void) !important;
+  color: var(--text-color) !important;
+}
+
+.dark .global-bg {
+  background-image: radial-gradient(var(--halftone-color) 1.5px, transparent 1.5px) !important;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--void) !important;
+  border-left: 3px solid var(--border-color) !important;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #ff1694; /* Neon Pink scrollbar thumb */
+  border: 3px solid var(--border-color) !important;
+}
+
+/* Cards & speach bubble modifications */
+.dark .neo-card, 
+.dark .clay-card, 
+.dark .speech-bubble {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 6px 6px 0px 0px var(--shadow-color) !important;
+  color: var(--text-color) !important;
+}
+
+.dark .speech-bubble::after {
+  border-color: var(--card-bg) transparent !important;
+}
+.dark .speech-bubble::before {
+  border-color: var(--border-color) transparent !important;
+}
+
+/* Interactive elements overrides */
+.dark .clay-btn {
+  border-color: var(--border-color) !important;
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.2), 
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2), 
+    5px 5px 0px var(--shadow-color) !important;
+}
+
+.dark .clay-btn:hover {
+  box-shadow: 
+    inset 0 3px 0 rgba(255, 255, 255, 0.2), 
+    inset 0 -3px 0 rgba(0, 0, 0, 0.2), 
+    2px 2px 0px var(--shadow-color) !important;
+}
+
+.dark .clay-btn:active {
+  box-shadow: 
+    inset 0 2px 0 rgba(255, 255, 255, 0.1), 
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1), 
+    1px 1px 0px var(--shadow-color) !important;
+}
+
+/* Floating navigation overrides */
+.dark nav div {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: 5px 5px 0px var(--shadow-color) !important;
+}
+
+.dark nav div button, 
+.dark nav div span {
+  color: var(--text-color) !important;
+}
+
+.dark nav div div {
+  box-shadow: inherit; /* Inherit logic */
+}
+
+/* Global utility translations */
+.dark .text-black, 
+.dark .text-zinc-900, 
+.dark h2, 
+.dark h3, 
+.dark h4, 
+.dark p, 
+.dark span {
+  /* Only override actual black/dark grey text properties */
+  color: inherit;
+}
+
+/* Explicit text overrides for standard cards */
+.dark .neo-card h2, 
+.dark .neo-card h3, 
+.dark .neo-card h4, 
+.dark .neo-card p, 
+.dark .neo-card span {
+  color: var(--text-color) !important;
+}
+
+.dark .text-black\/60, 
+.dark .text-zinc-550, 
+.dark .text-zinc-500, 
+.dark .text-black\/50, 
+.dark .text-black\/45, 
+.dark .text-black\/40 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .border-black, 
+.dark .border-zinc-800, 
+.dark .border-zinc-200, 
+.dark .border-b-4, 
+.dark .border-t, 
+.dark .border-b-2 {
+  border-color: var(--border-color) !important;
+}
+
+.dark .bg-white, 
+.dark .bg-zinc-50, 
+.dark .bg-[#FFFDEC] {
+  background-color: var(--card-bg) !important;
+}
+
+.dark .shadow-\[3px_3px_0px_\#000\], 
+.dark .shadow-\[2px_2px_0px_\#000\], 
+.dark .shadow-\[4px_4px_0px_\#000\],
+.dark .shadow-\[5px_5px_0px_rgba\(0\,0\,0\,1\)\] {
+  box-shadow: 3px 3px 0px var(--shadow-color) !important;
+}
+
+.dark .stroke-black {
+  stroke: var(--border-color) !important;
+}
+
+.dark .section-ghost-num {
+  -webkit-text-stroke: 3px rgba(255, 255, 255, 0.05) !important;
+  color: transparent !important;
+}
