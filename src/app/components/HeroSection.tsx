@@ -59,16 +59,16 @@ export function HeroSection() {
       {/* Main Content Flex Grid */}
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 pt-10 pb-8 flex-grow flex items-center"
+        className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 pt-6 lg:pt-10 pb-8 flex-grow flex items-center"
       >
-        {/* Responsive row alignment - 50% left, 50% right */}
-        <div className="flex flex-row items-center justify-between gap-8 w-full">
+        {/* Responsive row alignment - stacked on mobile, row on large screens */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 w-full">
           
-          {/* Left Column: Hello & Bold Titles (50% Width) */}
-          <div className="w-1/2 flex flex-col items-start text-left">
+          {/* Left Column: Hello & Bold Titles */}
+          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
             
             {/* Title Block 1 (HARSHIT) */}
-            <div className="mb-2 w-fit">
+            <div className="mb-2 w-fit mx-auto lg:mx-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, rotate: -4 }}
                 animate={{ opacity: 1, scale: 1, rotate: -4 }}
@@ -82,7 +82,7 @@ export function HeroSection() {
             </div>
 
             {/* Title Block 2 (MISHRA!) */}
-            <div className="mb-6 w-fit">
+            <div className="mb-6 w-fit mx-auto lg:mx-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, rotate: 2 }}
                 animate={{ opacity: 1, scale: 1, rotate: 2 }}
@@ -100,7 +100,7 @@ export function HeroSection() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4 }}
-              className="mb-6"
+              className="mb-6 mx-auto lg:mx-0"
             >
               <div className="speech-bubble bg-white dark:bg-zinc-900 text-black dark:text-white font-accent text-sm md:text-base font-black uppercase tracking-wider rotate-[-1deg] flex items-center gap-1">
                 💥 ACTIVE ROLE: <span className="text-[#ff1694] font-extrabold">{ROLES[roleIndex]}</span> 💥
@@ -112,7 +112,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-[#FFFDEC] dark:bg-zinc-900 border-[3px] border-black dark:border-white p-4.5 shadow-[5px_5px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_#fff] max-w-md rotate-[0.5deg] mb-6 transition-all duration-300"
+              className="bg-[#FFFDEC] dark:bg-zinc-900 border-[3px] border-black dark:border-white p-4.5 shadow-[5px_5px_0px_rgba(0,0,0,1)] dark:shadow-[5px_5px_0px_#fff] max-w-md rotate-[0.5deg] mb-6 transition-all duration-300 mx-auto lg:mx-0"
             >
               <p className="font-body text-[11px] md:text-xs font-bold text-black dark:text-zinc-200 leading-relaxed">
                 "17-year-old builder from Darbhanga. I design and ship intelligent systems — from AI integrations to full-stack platforms — that actually work in production."
@@ -124,7 +124,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-4 justify-center lg:justify-start"
             >
               <button onClick={() => go("services")} className="clay-btn font-black uppercase">
                 SEE MY WORK →
@@ -135,8 +135,8 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right Column: Cartoon Brain & absolute Data cards (50% Width) */}
-          <div className="w-1/2 flex items-center justify-center relative select-none">
+          {/* Right Column: Cartoon Brain & absolute Data cards */}
+          <div className="w-full lg:w-1/2 flex items-center justify-center relative select-none mt-10 lg:mt-0">
             
             {/* Fluid wrapper: dynamically scales, aspect ratio maintains a perfect square layout */}
             <motion.div 
@@ -164,13 +164,13 @@ export function HeroSection() {
                 className="w-[78%] h-[78%] object-contain cartoon-bob relative z-10"
               />
 
-              {/* Percentage-positioned responsive yellow OS data cards */}
+              {/* Percentage-positioned responsive yellow OS data cards (hidden on mobile to prevent layout leak) */}
               {/* Data Card 1: Top-Left */}
               <DataCard 
                 title="AI"
                 icon={<Brain size={14} className="stroke-[2.5px]" />}
                 content="17-yea-old builder from AI stems and intelligent systems to from AI."
-                className="absolute top-[-5%] left-[-10%] w-[44%] z-20 rotate-[-3deg] flex"
+                className="absolute top-[-5%] left-[-10%] w-[44%] z-20 rotate-[-3deg] hidden md:flex"
               />
 
               {/* Data Card 2: Top-Right */}
@@ -178,19 +178,19 @@ export function HeroSection() {
                 title="Systems"
                 icon={<Settings size={14} className="stroke-[2.5px]" />}
                 content="AI stode cutback systems and intelligent systems to full-stack platforms."
-                className="absolute top-[-5%] right-[-10%] w-[44%] z-20 rotate-[3deg] flex"
+                className="absolute top-[-5%] right-[-10%] w-[44%] z-20 rotate-[3deg] hidden md:flex"
               />
 
               {/* Data Card 3: Bottom-Left */}
               <DataCard 
                 content="AI basie conroputational > Air-intergracy"
-                className="absolute bottom-[5%] left-[-8%] w-[44%] z-20 rotate-[2deg] flex"
+                className="absolute bottom-[5%] left-[-8%] w-[44%] z-20 rotate-[2deg] hidden md:flex"
               />
 
               {/* Data Card 4: Bottom-Right */}
               <DataCard 
                 content="17-year-old intelligent systema — from AI/stack systems."
-                className="absolute bottom-[5%] right-[-8%] w-[44%] z-20 rotate-[-2deg] flex"
+                className="absolute bottom-[5%] right-[-8%] w-[44%] z-20 rotate-[-2deg] hidden md:flex"
               />
 
             </motion.div>

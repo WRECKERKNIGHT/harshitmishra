@@ -201,8 +201,8 @@ export function ServicesSection() {
       style={{ backgroundColor: `${active.accent}14` }} // 8% opacity dynamic backdrop tint
     >
       
-      {/* ── Sticky Scrollytelling Viewport (Extended height for smooth rotation pace) ── */}
-      <div ref={storyRef} style={{ height: "400vh" }} className="relative">
+      {/* ── Sticky Scrollytelling Viewport (Extended height for smooth rotation pace, disabled on mobile) ── */}
+      <div ref={storyRef} style={{ height: screenTier === "mobile" ? "auto" : "400vh" }} className="relative">
         <div className="sticky-story w-full px-6 sm:px-12 flex flex-col items-center justify-center overflow-hidden">
           
           {/* ── Global Background Floating Developer Stickers/Tags (Faded on mobile, vibrant on desktop) ── */}
@@ -322,7 +322,12 @@ export function ServicesSection() {
           </div>
 
           {/* Center-balanced Orbit + Side Tooltip Container */}
-          <div className="relative flex flex-col sm:flex-row items-center justify-center">
+          <div 
+            className="relative flex flex-col sm:flex-row items-center justify-center"
+            style={{
+              minHeight: screenTier === "mobile" ? `${layout.orbitSize + 225}px` : `${layout.orbitSize}px`
+            }}
+          >
             
             {/* Orbit Column (Left/Center Column) */}
             <div 
@@ -482,9 +487,10 @@ export function ServicesSection() {
                         </motion.div>
                       )}
 
-                      {/* Planet ball */}
+                      {/* Planet ball (clickable for tap navigation) */}
                       <div
-                        className={`rounded-full border-[3px] border-black dark:border-white flex items-center justify-center transition-all duration-150 ${
+                        onClick={() => setActiveIdx(i)}
+                        className={`rounded-full border-[3px] border-black dark:border-white flex items-center justify-center transition-all duration-150 cursor-pointer ${
                           isActive 
                             ? "scale-110 shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]" 
                             : "scale-100 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] dark:hover:bg-zinc-700 bg-white dark:bg-zinc-800"
