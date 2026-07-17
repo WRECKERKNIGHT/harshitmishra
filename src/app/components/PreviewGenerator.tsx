@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Loader2, ChevronRight, Check, Palette } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { TiltCard } from "./TiltCard";
 
 const TYPE_MAP: Record<string, { label: string; icon: string; features: string[] }> = {
   website:    { label: "Smart Website",    icon: "🌐", features: ["SEO optimized", "AI-powered chat", "Analytics"] },
@@ -170,14 +171,9 @@ export function PreviewGenerator() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-          {/* Input Panel */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: true }} 
-            whileHover={{ scale: 1.005, y: -2 }}
-            transition={{ duration: 0.5 }} 
-            className="neo-card p-6 md:p-8 space-y-6 bg-white dark:bg-zinc-900 transition-all duration-300"
+          
+          <TiltCard 
+            className="neo-card p-6 md:p-8 space-y-6 bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] rounded-2xl transition-all duration-300"
           >
             <div className="flex items-center gap-2 mb-2 pb-4 border-b-2 border-black dark:border-white">
               {["var(--neo-cyan)", "var(--neo-pink)", "var(--neo-yellow)"].map((c, i) => (
@@ -196,23 +192,23 @@ export function PreviewGenerator() {
                 type="text" 
                 value={name} 
                 onChange={e => setName(e.target.value)} 
-                placeholder="e.g. NexGen AI Platform"
-                className="w-full h-11 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 font-body text-sm text-black dark:text-white placeholder:text-black/30 dark:placeholder:text-zinc-600 focus:outline-none shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150"
+                placeholder="e.g. HyperLedger / Acoustic App" 
+                className="w-full h-12 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 font-accent text-xs text-black dark:text-white shadow-[2.5px_2.5px_0px_#000] dark:shadow-[2.5px_2.5px_0px_#fff] focus:outline-none hover:shadow-[4px_4px_0px_#000] dark:hover:shadow-[4px_4px_0px_#fff] transition-all duration-150"
               />
             </div>
 
             <div className="space-y-1.5">
               <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black dark:text-white">
-                Category
+                System Interface Type
               </label>
-              <Select onValueChange={setType}>
-                <SelectTrigger className="bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white text-black dark:text-white rounded-lg h-11 font-body text-sm shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] focus:ring-0 focus:outline-none hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150 cursor-none">
-                  <SelectValue placeholder="Select type" />
+              <Select value={type} onValueChange={setType}>
+                <SelectTrigger className="w-full h-12 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 font-accent text-xs text-black dark:text-white shadow-[2.5px_2.5px_0px_#000] dark:shadow-[2.5px_2.5px_0px_#fff] focus:outline-none hover:shadow-[4px_4px_0px_#000] dark:hover:shadow-[4px_4px_0px_#fff] transition-all duration-150">
+                  <SelectValue placeholder="Select interface category" />
                 </SelectTrigger>
-                <SelectContent className="bg-white dark:bg-zinc-900 border-[3px] border-black dark:border-white rounded-lg shadow-[4px_4px_0px_#000] dark:shadow-[4px_4px_0px_#fff]">
-                  {Object.entries(TYPE_MAP).map(([v, d]) => (
-                    <SelectItem key={v} value={v} className="font-body text-sm text-black dark:text-white focus:bg-[#FFDE47] dark:focus:bg-[#FFDE47] dark:focus:text-black cursor-none">
-                      {d.icon} {d.label}
+                <SelectContent className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-white font-accent text-xs">
+                  {Object.entries(TYPE_MAP).map(([key, data]) => (
+                    <SelectItem key={key} value={key} className="cursor-none font-bold uppercase text-black dark:text-white">
+                      {data.icon} {data.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -221,20 +217,19 @@ export function PreviewGenerator() {
 
             <div className="space-y-1.5">
               <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black dark:text-white">
-                Narrative Pitch
+                Operational Purpose / Description
               </label>
               <textarea 
                 value={desc} 
                 onChange={e => setDesc(e.target.value)} 
-                placeholder="Describe what you want to build..." 
-                rows={3}
-                className="w-full bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg px-4 py-3 font-body text-sm text-black dark:text-white placeholder:text-black/30 dark:placeholder:text-zinc-600 focus:outline-none resize-none shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] hover:shadow-[3.5px_3.5px_0px_#000] dark:hover:shadow-[3.5px_3.5px_0px_#fff] transition-all duration-150"
+                placeholder="Brief description of the platform's core mechanics or target features..."
+                className="w-full h-24 bg-white dark:bg-zinc-950 border-[3px] border-black dark:border-white rounded-lg p-4 font-accent text-xs text-black dark:text-white shadow-[2.5px_2.5px_0px_#000] dark:shadow-[2.5px_2.5px_0px_#fff] focus:outline-none hover:shadow-[4px_4px_0px_#000] dark:hover:shadow-[4px_4px_0px_#fff] transition-all duration-150 resize-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase flex items-center gap-1.5 text-black dark:text-white">
-                <Palette size={12} className="stroke-[2.5px]" /> Brand Color
+              <label className="font-accent font-black text-[10px] tracking-[0.25em] uppercase text-black dark:text-white">
+                Primary Neon Theme Accent
               </label>
               <div className="flex gap-3 items-center">
                 <input 
@@ -273,16 +268,11 @@ export function PreviewGenerator() {
                 </>
               )}
             </button>
-          </motion.div>
+          </TiltCard>
 
           {/* Output Panel (Real-looking standard website previews) */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }} 
-            whileInView={{ opacity: 1, x: 0 }} 
-            viewport={{ once: true }} 
-            whileHover={{ scale: 1.005, y: -2 }}
-            transition={{ duration: 0.5, delay: 0.1 }} 
-            className="neo-card bg-[#18181b] border-[3px] border-black dark:border-white rounded-2xl min-h-[520px] flex flex-col overflow-hidden shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] p-0 transition-all duration-300"
+          <TiltCard 
+            className="neo-card bg-[#18181b] border-[3.5px] border-black dark:border-white rounded-2xl min-h-[520px] flex flex-col overflow-hidden shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] p-0 transition-all duration-300"
           >
             {/* Browser Header Bar */}
             <div className="h-10 bg-[#09090b] border-b-2 border-black dark:border-white flex items-center justify-between px-4 select-none shrink-0">
@@ -299,6 +289,9 @@ export function PreviewGenerator() {
 
             {/* Live Interactive Rendering Area */}
             <div className="flex-grow bg-[#09090b] relative overflow-y-auto max-h-[480px] flex flex-col">
+              {/* Retro CRT overlay filter */}
+              <div className="absolute inset-0 pointer-events-none z-20 bg-crt-scanlines animate-crt-flicker" />
+
               <AnimatePresence mode="wait">
                 {loading ? (
                   <motion.div 
@@ -306,7 +299,7 @@ export function PreviewGenerator() {
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0 }}
-                    className="w-full h-full p-6 flex flex-col font-mono text-[9px] text-zinc-300 gap-2.5 items-start justify-center text-left bg-[#0c0c0e] flex-grow min-h-[300px]"
+                    className="w-full h-full p-6 flex flex-col font-mono text-[9px] text-zinc-300 gap-2.5 items-start justify-center text-left bg-[#0c0c0e] flex-grow min-h-[300px] relative"
                   >
                     <div className="flex items-center gap-2 border-b border-zinc-800 pb-2 w-full mb-4">
                       <span className="w-2 h-2 rounded-full bg-[#ff5f56]" />
@@ -621,7 +614,7 @@ export function PreviewGenerator() {
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </TiltCard>
         </div>
       </div>
     </section>

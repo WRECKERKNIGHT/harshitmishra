@@ -412,3 +412,26 @@ html, body {
 .animate-scan-sweep {
   animation: scan-sweep 4.2s ease-in-out infinite;
 }
+
+/* Retro CRT scanlines overlay filter */
+.bg-crt-scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.22) 50%
+  ), linear-gradient(
+    90deg, 
+    rgba(255, 0, 0, 0.04), 
+    rgba(0, 255, 0, 0.02), 
+    rgba(0, 0, 255, 0.04)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Subtly flicker scanline brightness */
+@keyframes crt-flicker {
+  0%, 100% { opacity: 0.06; }
+  50% { opacity: 0.11; }
+}
+.animate-crt-flicker {
+  animation: crt-flicker 0.25s infinite;
+}

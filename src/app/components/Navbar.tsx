@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
+import { ScrambleText } from "./ScrambleText";
 
 const NAV = [
   { label: "Services", href: "#services" },
@@ -18,6 +19,7 @@ interface NavbarProps {
 export function Navbar({ theme, toggleTheme }: NavbarProps) {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("");
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   useEffect(() => {
     const handler = () => {
@@ -61,14 +63,20 @@ export function Navbar({ theme, toggleTheme }: NavbarProps) {
         {/* Desktop Navigation Links (Pushed right to prevent center overlap) */}
         <div className="hidden sm:flex items-center gap-4 md:gap-6 ml-auto mr-6 relative z-10">
           {NAV.map((n) => (
-            <button key={n.label} onClick={() => go(n.href)} className="relative cursor-none group px-3 py-1.5 transition-all">
+            <button 
+              key={n.label} 
+              onClick={() => go(n.href)} 
+              onMouseEnter={() => setHoveredNav(n.label)}
+              onMouseLeave={() => setHoveredNav(null)}
+              className="relative cursor-none group px-3 py-1.5 transition-all"
+            >
               {/* Neubrutalist pop-up background tag on hover */}
               <span className="absolute inset-0 bg-[#FFDE47] dark:bg-zinc-800 border-[2.5px] border-black dark:border-white rounded-lg opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] transition-all duration-200 z-0" />
               
               <span className={`font-accent text-[11px] tracking-wider font-black uppercase transition-colors duration-150 relative z-10 ${
                 active === n.href.slice(1) ? "text-[#ff1694]" : "text-black/65 dark:text-zinc-400 group-hover:text-black dark:group-hover:text-white"
               }`}>
-                {n.label}
+                <ScrambleText text={n.label} trigger={hoveredNav === n.label} />
               </span>
               
               {active === n.href.slice(1) && (

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Crosshair, Zap, Cpu, Shield, Flame, Activity } from "lucide-react";
+import { TiltCard } from "./TiltCard";
+import { ScrambleText } from "./ScrambleText";
 
 // Arsenal loadout data structure
 const CATEGORIES = [
@@ -47,6 +49,7 @@ const CATEGORIES = [
 
 export function TheArsenal() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
 
   // Helper to draw arcade-style block bar indicators
   const renderStatBlocks = (power: number, color: string) => {
@@ -102,14 +105,18 @@ export function TheArsenal() {
             <div key={cat.key} className="space-y-6">
               
               {/* Category Header Label (Neubrutalist ribbon) */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black dark:border-white pb-4">
+              <div 
+                onMouseEnter={() => setHoveredCategory(cat.key)}
+                onMouseLeave={() => setHoveredCategory(null)}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-black dark:border-white pb-4"
+              >
                 <div className="flex items-center gap-4">
                   <div className="w-8 h-8 rounded-lg border-[2.5px] border-black dark:border-white flex items-center justify-center shadow-[2px_2px_0px_#000] dark:shadow-[2px_2px_0px_#fff] rotate-[-3deg]" style={{ background: cat.color }}>
                     <Cpu size={16} className="text-black" />
                   </div>
                   <div>
-                    <h3 className="font-display text-2xl tracking-wide text-black dark:text-white uppercase leading-none">
-                      {cat.label}
+                    <h3 className="font-display text-2xl tracking-wide text-black dark:text-white uppercase leading-none min-w-[200px]">
+                      <ScrambleText text={cat.label} trigger={hoveredCategory === cat.key} />
                     </h3>
                     <span className="font-accent text-[9px] font-black tracking-widest text-black/45 dark:text-zinc-500 block mt-0.5">
                       {cat.sub}
@@ -126,15 +133,10 @@ export function TheArsenal() {
                 {cat.items.map((tool) => {
                   const isHovered = hoveredCard === tool.id;
                   return (
-                    <motion.div
+                    <TiltCard
                       key={tool.id}
                       onMouseEnter={() => setHoveredCard(tool.id)}
                       onMouseLeave={() => setHoveredCard(null)}
-                      whileHover={{ 
-                        scale: 1.025, 
-                        rotate: (tool.power % 2 === 0 ? 0.8 : -0.8) 
-                      }}
-                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
                       className="neo-card bg-white dark:bg-zinc-900 border-[3.5px] border-black dark:border-white p-5 flex flex-col justify-between min-h-[290px] group relative select-none cursor-none shadow-[6px_6px_0px_#000] dark:shadow-[6px_6px_0px_#fff] hover:shadow-[10px_10px_0px_#000] dark:hover:shadow-[10px_10px_0px_#fff] transition-all duration-300"
                     >
                       {/* Interactive target reticle icon */}
@@ -211,7 +213,7 @@ export function TheArsenal() {
                       <p className="font-body text-[10px] font-semibold text-black/60 dark:text-zinc-400 leading-relaxed">
                         {tool.desc}
                       </p>
-                    </motion.div>
+                    </TiltCard>
                   );
                 })}
               </div>
