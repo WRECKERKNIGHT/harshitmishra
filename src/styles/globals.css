@@ -435,3 +435,21 @@ html, body {
 .animate-crt-flicker {
   animation: crt-flicker 0.25s infinite;
 }
+
+/* Pulsing Data Flow Beam for Automation Nodes */
+@keyframes node-pulse-beam {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+.animate-node-pulse {
+  animation: node-pulse-beam 1.6s ease-in-out infinite;
+}
